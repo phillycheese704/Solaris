@@ -7,7 +7,8 @@
 Open **[index.html](index.html)** in a modern desktop browser (Chrome, Edge or Firefox). No installation, build tools, external dependencies or online assets are required. A GPU and WebGL 2 support are recommended.
 
 **OR**
-open phillycheese704.github.io/solaris/
+open 
+https://phillycheese704.github.io/solaris/
 
 ## Features
 
