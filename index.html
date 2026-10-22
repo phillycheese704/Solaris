@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <title>Solaris — 3D Solar System Simulator</title>
 <style>
 :root{color-scheme:dark;--bg:#070a11;--panel:#101722ed;--line:#273344;--muted:#8794a6;--text:#e9edf6;--accent:#89caff;--orange:#f8b66b}*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--bg);font-family:'DM Sans',system-ui,sans-serif;color:var(--text)}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:2px solid #80bdff;outline-offset:2px}
@@ -23,15 +23,59 @@
 body.smash-on .hud-center{opacity:.2}body.smash-on .hint{color:#ffd2bc;border-color:#89594a88}body.smash-on .sidebar .mini-value{color:#ff9c78}
 @media(max-width:1100px){.smash-dock{left:211px;width:228px;top:92px}.smash-toggle{font-size:10px;padding:0 8px}}
 @media(max-width:760px){.smash-dock{top:76px;left:12px;width:min(280px,calc(100vw - 25px));max-height:calc(100dvh - 186px);padding:12px}.smash-toggle{font-size:10px}.topbar{align-items:center}.smash-dock .weapon{min-height:52px}.smash-dock .weapon-icon{font-size:17px}}
+
+/* Solaris responsive observatory controls — touch, tablet, and phone */
+:root{--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px)}
+button{ -webkit-tap-highlight-color:transparent }
+.panel-backdrop,.inspector-handle,.weapon-peek{display:none}
+@media (pointer:coarse){.pill,.icon-btn,.action,.smash-action,.smash-x,.tab,.body,.weapon{min-height:44px}.body{height:48px}.tab{padding:13px 9px}.range{height:24px;background:transparent}.range::-webkit-slider-thumb{width:23px;height:23px}.toggle-row input{width:44px;height:26px}.toggle-row input:before{width:18px;height:18px;top:4px;left:4px}.toggle-row input:checked:before{transform:translateX(18px)}.weapon{min-height:72px}.smash-param input[type=range]{height:24px}.help-card{max-height:90dvh;overflow:auto}}
+@media (max-width:1180px){
+ .shell{inset:0;inset-block-end:0}.panel-backdrop{display:block;position:fixed;inset:0;background:#030813ae;backdrop-filter:blur(3px);opacity:0;visibility:hidden;pointer-events:none;z-index:6;transition:opacity .2s,visibility .2s}.panel-backdrop.open{opacity:1;visibility:visible;pointer-events:auto}
+ .sidebar{width:min(310px,85vw);z-index:10;transform:translateX(-105%);transition:transform .22s ease;border-right:1px solid #66809f55;padding-top:var(--safe-top)}.sidebar.open{transform:none}.sidebar .body{height:48px}.sidebar-bottom{display:block}
+ .inspector{z-index:9;width:min(350px,88vw);right:0;transform:translateX(103%);transition:transform .24s ease;box-shadow:-20px 0 70px #000a;padding-top:var(--safe-top);padding-bottom:var(--safe-bottom)}.inspector.open{transform:none}
+ .inspector-handle{display:flex;position:sticky;top:0;z-index:9;width:100%;min-height:52px;align-items:center;gap:12px;border:0;border-bottom:1px solid #ffffff20;background:#172639fa;color:#dcecff;padding:10px 18px;text-align:left;font-size:12px;font-weight:700;letter-spacing:.35px}.inspector-handle .handle-chevron{margin-left:auto;font-size:20px}.inspector-handle .grab-mark{font-size:17px;color:#8fc9ff}
+ .topbar{left:18px;right:18px;top:calc(14px + var(--safe-top));align-items:center;z-index:8}.top-controls{flex-direction:row;align-items:center;gap:7px}.view-title{font-size:20px}.topbar .pill.optional{display:none}.mobile-toggle{display:flex}.top-controls .pill{min-height:43px}
+ .timebar{left:50%;transform:translateX(-50%);width:min(590px,calc(100vw - 36px));min-width:0;bottom:calc(17px + var(--safe-bottom));padding:11px 15px;z-index:5}
+ .smash-dock{left:18px;top:calc(87px + var(--safe-top));width:260px;max-height:calc(100dvh - 215px - var(--safe-bottom));z-index:7}
+ .hint{left:20px;bottom:calc(143px + var(--safe-bottom))}.legend{display:none}.hud-center{top:100px}
+ .weapon-peek{position:fixed;z-index:8;bottom:calc(146px + var(--safe-bottom));left:16px;border:1px solid #ffab8480;border-radius:24px;background:#4d2c33f5;box-shadow:0 8px 24px #0009;color:#ffe7d9;padding:11px 15px;font-size:12px;font-weight:750;pointer-events:auto}
+ body.smash-on.smash-minimized .weapon-peek{display:block}body.smash-on.smash-minimized .smash-dock{display:none}
+ .smash-aim-btn{display:flex;align-items:center;justify-content:center;min-height:40px;border:1px solid #ffab8477;color:#ffe4d3;background:#5b3939;border-radius:9px;font-size:12px;font-weight:700;width:100%;margin:10px 0 0}
+ body.settings-open .timebar{opacity:0;pointer-events:none}body.settings-open .smash-dock{display:none}
+}
+@media (max-width:900px){
+ .inspector{top:auto;bottom:0;right:0;width:100%;height:calc(61px + var(--safe-bottom));padding:0 0 var(--safe-bottom);border-left:0;border-top:1px solid #8fa5c444;border-radius:17px 17px 0 0;transform:none;overflow:hidden;box-shadow:0 -12px 45px #000a;background:#0f1825fa}
+ .inspector.open{height:min(65dvh,650px);height:min(65svh,650px);overflow:auto;overscroll-behavior:contain}
+ .inspector-handle{min-height:60px;justify-content:center;position:sticky;top:0;background:#182637fb}.inspector-handle:before{content:'';position:absolute;top:6px;left:calc(50% - 23px);width:46px;height:4px;border-radius:5px;background:#667d92}.inspector-handle .grab-mark{font-size:0}.inspector-handle .grab-mark:after{content:'◉';font-size:15px}.inspector .insp-header{padding:12px 18px 7px}.inspector .planet-preview{height:90px}.inspector .insp-name{font-size:26px}.inspector .stat-grid{grid-template-columns:repeat(4,minmax(0,1fr));padding:0 12px 10px;gap:5px}.inspector .stat{padding:9px 5px}.inspector .stat-val{font-size:13px}.inspector .stat-lbl{font-size:8px}
+ .topbar{left:12px;right:12px;top:calc(8px + var(--safe-top));gap:7px}.topbar .eyebrow{display:none}.view-title{font-size:16px;margin-top:0;white-space:nowrap;max-width:175px;overflow:hidden;text-overflow:ellipsis}.top-controls{gap:5px}.top-controls .pill{min-height:42px;padding:0 10px}
+ .timebar{width:calc(100% - 22px);max-width:560px;bottom:calc(70px + var(--safe-bottom));padding:9px 11px}.timebar .time-top{margin-bottom:7px}.timebar .time-title{display:none}.timebar .date-text{font-size:14px}.playtools{gap:5px}.playtools .icon-btn{width:37px;height:37px}.playtools .icon-btn.play{width:42px}.time-bot{gap:9px}.time-bot .tiny{display:none}.time-bot input[type=range]{min-width:40px}.time-bot input[type=date]{font-size:16px;width:130px;min-width:0;min-height:36px;padding:3px 5px}.time-bot #todayBtn{width:38px;height:38px;flex-shrink:0}
+ .hud-center{display:none}.hint,.legend{display:none}.toast{top:calc(64px + var(--safe-top));max-width:calc(100vw - 30px);text-align:center}.world-label{font-size:10px}
+ .smash-dock{top:calc(70px + var(--safe-top));left:10px;width:min(298px,calc(100vw - 20px));max-height:calc(100dvh - 257px - var(--safe-bottom));border-radius:13px;padding:12px}.smash-dock .weapon{min-height:64px}.smash-dock .weapon-name{font-size:10px}.smash-x{min-width:38px;min-height:38px}
+ .weapon-peek{bottom:calc(182px + var(--safe-bottom));left:12px}
+ .smash-aim-btn{min-height:42px}
+ body.settings-open .panel-backdrop{visibility:hidden;opacity:0;pointer-events:none}body.settings-open .smash-dock{display:none}body.settings-open .weapon-peek{display:none}
+}
+@media (max-width:560px){
+ .view-title{font-size:0;max-width:83px}.view-title:after{content:'SOLARIS';font-size:16px;letter-spacing:1.5px}
+ .top-controls .pill{width:39px;min-width:39px;height:42px;padding:0;justify-content:center;font-size:0}
+ #menuBtn,#settingsBtn{font-size:19px}#helpBtn{font-size:0}#helpBtn:after{content:"?";font-size:21px}#smashBtn:after{content:'☄';font-size:22px}#homeBtn:after{content:'⌂';font-size:24px}#homeBtn{font-size:0}
+ .rate-box{font-size:10px;min-width:62px}.timebar .date-text{font-size:12px}.time-top{gap:3px}.time-bot input[type=date]{width:126px}
+ .smash-dock .weapon{min-height:58px}
+ .help-card{padding:19px}
+}
+@media (max-width:360px){.topbar{left:8px;right:8px}.top-controls{gap:3px}.top-controls .pill{width:36px;min-width:36px}.view-title{max-width:76px}.view-title:after{font-size:14px}.rate-box{min-width:50px}.timebar .date-text{font-size:11px}.time-bot input[type=date]{width:114px}.time-bot{gap:5px}}
+@media (max-height:540px) and (max-width:900px){.inspector{height:calc(49px + var(--safe-bottom))}.inspector.open{height:80dvh}.inspector-handle{min-height:49px}.timebar{bottom:calc(53px + var(--safe-bottom));padding:6px 9px}.time-top{margin-bottom:2px}.weapon-peek{bottom:calc(145px + var(--safe-bottom))}.smash-dock{top:calc(57px + var(--safe-top));max-height:calc(100dvh - 180px)}.topbar{top:calc(4px + var(--safe-top))}}
+@media (prefers-reduced-motion:reduce){.sidebar,.inspector,.panel-backdrop{transition:none!important}}
+
 </style></head>
 <body>
 <canvas id="space" aria-label="Interactive WebGL solar system simulator"></canvas>
 <canvas id="impactFx" aria-hidden="true"></canvas>
 <div id="statusSplash">PLANET DESTROYED</div>
 <div class="vignette"></div><div class="noise"></div><div class="labels" id="labels"></div>
-<div class="shell">
+<div class="shell"><div class="panel-backdrop" id="panelBackdrop" aria-hidden="true"></div>
 <aside class="sidebar" id="sidebar"><div class="brand"><div class="brandline"><div class="logo">☼</div><div><div class="brand-name">SOLARIS</div><div class="brand-sub">ORBITAL SIMULATOR + IMPACT LAB</div></div></div></div><div class="sectitle">DISCOVER THE SYSTEM</div><div id="bodyList" class="body-list"></div><div class="sidebar-bottom"><div class="mini-eyebrow">OBSERVATORY STATUS</div><div class="mini-value"><span style="color:#77d7a3">●</span> &nbsp; SIMULATION ACTIVE</div><div class="mini-progress"><span></span></div><div class="tip" style="margin-bottom:0">8 planets · 1 star · 1 moon<br/>Newtonian experimental mode</div></div></aside>
-<header class="topbar"><div><div class="eyebrow">INTERACTIVE ASTRONOMY / SOLAR SYSTEM</div><div class="view-title" id="viewTitle">Orbital overview</div></div><div class="top-controls"><button class="pill mobile-toggle" id="menuBtn">☰</button><button class="pill optional" id="orbitBtn" aria-pressed="true">◎ Orbits</button><button class="pill optional" id="labelBtn" aria-pressed="true">⌖ Labels</button><button class="pill smash-toggle" id="smashBtn" title="Toggle destruction sandbox">☄ SMASH MODE</button><button class="pill" id="homeBtn">↗ Overview</button><button class="pill" id="helpBtn">? Help</button></div></header>
+<header class="topbar"><div><div class="eyebrow">INTERACTIVE ASTRONOMY / SOLAR SYSTEM</div><div class="view-title" id="viewTitle">Orbital overview</div></div><div class="top-controls"><button class="pill mobile-toggle" id="menuBtn">☰</button><button class="pill mobile-toggle" id="settingsBtn" title="Planet settings">⚙</button><button class="pill optional" id="orbitBtn" aria-pressed="true">◎ Orbits</button><button class="pill optional" id="labelBtn" aria-pressed="true">⌖ Labels</button><button class="pill smash-toggle" id="smashBtn" title="Toggle destruction sandbox">☄ SMASH MODE</button><button class="pill" id="homeBtn">↗ Overview</button><button class="pill" id="helpBtn">? Help</button></div></header>
 <div class="hud-center"><div class="hud-overline">HELIOCENTRIC VIEW</div><div class="hud-title">OUR SOLAR SYSTEM</div></div>
 <div class="hint"><b>Drag</b> orbit camera &nbsp;·&nbsp; <b>Scroll</b> zoom &nbsp;·&nbsp; <b>Click</b> a planet to explore</div><div class="legend" id="scaleLegend">Visualization scale enlarged for readability. Orbital motion uses astronomical elements.</div><div class="toast" id="toast"></div>
 
@@ -48,7 +92,8 @@ body.smash-on .hud-center{opacity:.2}body.smash-on .hint{color:#ffd2bc;border-co
 <div class="smash-actions"><button class="smash-action" id="restoreWorld">↺ Restore target</button><button class="smash-action secondary" id="restoreSystem">Restore all</button></div>
 <div class="smash-tip" id="weaponTip">Click a planet's visible surface. Select a world on the left and zoom in for precision. <b>R</b> repairs the selected world.</div>
 </section>
-<aside class="inspector"><div class="insp-header"><div class="insp-eyebrow" id="inspEyebrow">PLANETARY PROFILE / 03</div><div class="insp-name" id="inspName">Earth</div><div class="insp-desc" id="inspDesc">Our pale blue dot.</div><div class="planet-preview"><div class="preview-ball" id="previewBall"></div><div class="preview-rings" id="previewRings"></div><div class="preview-caption">ILLUSTRATIVE TEXTURE</div></div></div><div class="stat-grid" id="statGrid"></div><div class="tabs" id="tabs"><button class="tab active" data-tab="appearance">Appearance</button><button class="tab" data-tab="orbit">Orbit</button><button class="tab" data-tab="physics">Physics</button></div><div class="settings" id="settings"></div><div class="citation"><strong>ABOUT ACCURACY</strong><br/>Planet positions: JPL approximate Keplerian elements (1800–2050), not telescope-grade ephemerides. Textures are artist-generated geographic/planetary approximations, not NASA imagery. Impact Lab destruction is a cinematic game simulation, not a validated physical model. Gravity mode is an experimental point-mass model with a fixed Sun. <a target="_blank" rel="noopener noreferrer" href="https://ssd.jpl.nasa.gov/planets/approx_pos.html">JPL source ↗</a></div></aside>
+<button id="weaponPeek" class="weapon-peek" type="button" aria-label="Open weapons">☄ Weapons</button>
+<aside class="inspector" id="planetInspector"><button type="button" id="inspectorHandle" class="inspector-handle" aria-expanded="false"><span class="grab-mark">◉</span><span id="handleLabel">EARTH · SETTINGS</span><span class="handle-chevron">⌃</span></button><div class="insp-header"><div class="insp-eyebrow" id="inspEyebrow">PLANETARY PROFILE / 03</div><div class="insp-name" id="inspName">Earth</div><div class="insp-desc" id="inspDesc">Our pale blue dot.</div><div class="planet-preview"><div class="preview-ball" id="previewBall"></div><div class="preview-rings" id="previewRings"></div><div class="preview-caption">ILLUSTRATIVE TEXTURE</div></div></div><div class="stat-grid" id="statGrid"></div><div class="tabs" id="tabs"><button class="tab active" data-tab="appearance">Appearance</button><button class="tab" data-tab="orbit">Orbit</button><button class="tab" data-tab="physics">Physics</button></div><div class="settings" id="settings"></div><div class="citation"><strong>ABOUT ACCURACY</strong><br/>Planet positions: JPL approximate Keplerian elements (1800–2050), not telescope-grade ephemerides. Textures are artist-generated geographic/planetary approximations, not NASA imagery. Impact Lab destruction is a cinematic game simulation, not a validated physical model. Gravity mode is an experimental point-mass model with a fixed Sun. <a target="_blank" rel="noopener noreferrer" href="https://ssd.jpl.nasa.gov/planets/approx_pos.html">JPL source ↗</a></div></aside>
 <div class="timebar"><div class="time-top"><div><div class="time-title">SIMULATION DATE / UTC</div><div class="date-text" id="dateText">22 OCT 2026</div></div><div class="playtools"><button class="icon-btn" id="rewindBtn" title="Slow down">«</button><button class="icon-btn play" id="playBtn" title="Play / pause">❚❚</button><button class="icon-btn" id="fwdBtn" title="Speed up">»</button><span class="rate-box" id="speedText">2 days/s</span></div></div><div class="time-bot"><span class="tiny">TIME</span><input aria-label="Time speed" class="range" type="range" min="-2" max="3" step="0.02" value="0.30103" id="speedSlider"/><input type="date" id="datePicker" min="1800-01-01" max="2050-12-31" title="Jump to date"/><button class="icon-btn" id="todayBtn" title="Current date">↺</button></div></div>
 </div>
 <div class="help" id="help"><div class="help-card"><button class="help-close" id="closeHelp">×</button><div class="eyebrow">SOLARIS / FLIGHT MANUAL</div><h2>Welcome to the observatory</h2><p>Explore eight planets on approximate real-date orbits, or run an experimental interactive gravity sandbox.</p><ul><li><b>Drag</b> the sky to orbit your camera; <b>mouse wheel</b> zooms.</li><li><b>Click a planet</b> (or select from the sidebar) to focus it.</li><li><b>Space</b> pauses / resumes. <b>H</b> returns to overview.</li><li>Change appearance, orbit, and gravity variables in the right panel.</li><li><b>Readability mode</b> enlarges planet sizes and compresses orbit distances. Physical mode uses one consistent distance-and-radius scale, so bodies may be almost invisible in overview; select a planet to inspect it.</li><li>Change the date or time speed from the bottom control strip.</li><li><b>SMASH MODE</b> opens the cinematic weapons lab: target a planet surface to fire, adjust energy and radius, deploy shields, or restore damage. These effects are intentionally arcade physics, not realistic impact simulations.</li></ul><button class="action" id="startBtn">Begin exploring →</button></div></div>
@@ -183,7 +228,7 @@ function bindTex(tex,unit){gl.activeTexture(gl.TEXTURE0+unit);gl.bindTexture(gl.
 function hex3(hex){return [parseInt(hex.slice(1,3),16)/255,parseInt(hex.slice(3,5),16)/255,parseInt(hex.slice(5,7),16)/255]}
 function createPath(p){let buff=[],steps=240;for(let i=0;i<=steps;i++){let tm=state.date+(i/steps)*365.25*Math.pow(p.a,1.5)*DAY;let v=posWorld(kepler(p,tm));buff.push(...v);}let vb=makeBuffer(new Float32Array(buff));return {vao:vaoFor(pr.line,[['Pos',vb,12,0,3]]),count:steps+1,buffer:vb};}
 let paths={};function rebuildPaths(){for(const k in paths)gl.deleteBuffer(paths[k].buffer);paths={};for(const p of planets.filter(p=>p.orb))paths[p.id]=createPath(p);}
-function resize(){const dpr=Math.min(devicePixelRatio||1,1.8),w=Math.floor(canvas.clientWidth*dpr),h=Math.floor(canvas.clientHeight*dpr);if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h);}}
+function resize(){const dpr=Math.min(devicePixelRatio||1,window.matchMedia('(pointer:coarse)').matches?(innerWidth<600?1.25:1.5):1.8),w=Math.floor(canvas.clientWidth*dpr),h=Math.floor(canvas.clientHeight*dpr);if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h);}}
 function render(){resize();const cam=cameraData();gl.clearColor(.009,.015,.028,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);if(state.showStars){gl.disable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);gl.useProgram(pr.star);common(pr.star,cam);U1(pr.star,'PixelRatio',Math.min(devicePixelRatio||1,1.8));gl.bindVertexArray(starsVao);gl.drawArrays(gl.POINTS,0,starData.length/4);gl.disable(gl.BLEND);gl.enable(gl.DEPTH_TEST);}
 if(state.showOrbits){gl.useProgram(pr.line);common(pr.line,cam);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);for(const p of planets.filter(x=>x.orb)){let b=paths[p.id];if(!b)continue;U4(pr.line,'Color',[...hex3(p.color),p.id===state.selected?.34:.105]);gl.bindVertexArray(b.vao);gl.drawArrays(gl.LINE_STRIP,0,b.count);}gl.disable(gl.BLEND);}
 const ps=[...planets].sort((a,b)=>V.len(V.sub(b.pos,cam.pos))-V.len(V.sub(a.pos,cam.pos)));gl.useProgram(pr.sphere);common(pr.sphere,cam);U3(pr.sphere,'Camera',cam.pos);Ui(pr.sphere,'Tex',0);Ui(pr.sphere,'Night',1);gl.bindVertexArray(sphere.vao);
@@ -250,7 +295,7 @@ function initSmashUI(){let g=$('weaponGrid');g.innerHTML=SMASH_WEAPONS.map(w=>`<
  canvas.addEventListener('pointermove',e=>{smash.mouse=[e.clientX,e.clientY]});updateSmashDock();}
 function setSmashMode(enable){smash.enabled=enable;document.body.classList.toggle('smash-on',enable);$('smashBtn').classList.toggle('active',enable);$('smashBtn').setAttribute('aria-pressed',String(enable));$('smashDock').classList.toggle('open',enable);$('smashDock').setAttribute('aria-hidden',String(!enable));canvas.classList.toggle('smash-aim',enable);
  $('viewTitle').textContent=enable?'Impact Laboratory':state.focus==='overview'?'Orbital overview':'Exploring '+planets.find(p=>p.id===state.selected).name;
- $('scaleLegend').style.opacity=enable?'.2':'1';if(enable){selectBody(state.selected);state.camera.target=planets.find(p=>p.id===state.selected).pos.slice();state.camera.wanted=state.camera.target.slice();$('viewTitle').textContent='Impact Laboratory';state.camera.dist=state.physicalScale?Math.max(.006,planets.find(p=>p.id===state.selected).r*5.2):Math.max(3,planets.find(p=>p.id===state.selected).r*5.2);showToast('IMPACT LAB: select a weapon, click a planet to fire');state.showOrbits=false;$('orbitBtn').classList.remove('active');}else{showToast('Scientific observatory mode');}}
+ $('scaleLegend').style.opacity=enable?'.2':'1';if(enable){selectBody(state.selected);state.camera.dist=state.physicalScale?Math.max(.006,planets.find(p=>p.id===state.selected).r*5.2):Math.max(3,planets.find(p=>p.id===state.selected).r*5.2);showToast('IMPACT LAB: select a weapon, click a planet to fire');state.showOrbits=false;$('orbitBtn').classList.remove('active');}else{showToast('Scientific observatory mode');}}
 function restoreSmashWorld(p,quiet=false){if(!p)return;p.integrity=100;p.shield=0;p.hits=[];p.fragments=[];p.destroyedAt=0;
  smash.events=smash.events.filter(e=>e.p!==p);smash.vortices=smash.vortices.filter(v=>v.p!==p);if(!quiet){updateSmashDock();showToast(p.name+' restored');updateInspector();}}
 function smashPick(x,y,cam){let nx=x/canvas.clientWidth*2-1,ny=1-y/canvas.clientHeight*2,tan=Math.tan(24*d2r);
@@ -320,5 +365,92 @@ function drawSmashFx(now){let dpr=Math.min(devicePixelRatio||1,1.8),w=Math.max(1
 
 function loop(now){let delta=Math.min(.075,Math.max(0,(now-state.lastFrame)/1000));state.lastFrame=now;let days=0;if(!state.paused){days=delta*state.speed;const maxMs=Date.UTC(2050,11,31)-state.date,minMs=Date.UTC(1800,0,1)-state.date;days=Math.min(days,maxMs/DAY);days=Math.max(days,minMs/DAY);state.date+=days*DAY;if(state.gravity&&days)advanceGravity(days);}updatePhysical();if(state.focus!=='overview'&&state.follow){let p=planets.find(p=>p.id===state.focus);if(p)state.camera.wanted=p.pos.slice();}else if(state.focus==='overview'){state.camera.wanted=[0,0,0];}state.camera.target=V.lerp(state.camera.target,state.camera.wanted,Math.min(.12,1-Math.exp(-delta*6)));if((state.frame++%14)===0){$('dateText').textContent=formatDate(state.date);if(document.activeElement!==$('datePicker'))$('datePicker').value=new Date(state.date).toISOString().slice(0,10);if(state.focus!=='overview')updateInspectorLimited();}tickSmash(now,delta);render();drawSmashFx(now);requestAnimationFrame(loop);}
 initUI();requestAnimationFrame(loop);
+</script>
+<script>
+/* Solaris touch and responsive panels. Runs after the core renderer. */
+function initMobileUI(){
+ const sidebar=$('sidebar'),inspector=document.querySelector('.inspector'),backdrop=$('panelBackdrop');
+ const menu=$('menuBtn'),settingsBtn=$('settingsBtn'),handle=$('inspectorHandle'),peek=$('weaponPeek');
+ const handleLabel=$('handleLabel');new MutationObserver(()=>handleLabel.textContent=$('inspName').textContent.toUpperCase()+' · SETTINGS').observe($('inspName'),{childList:true,characterData:true,subtree:true});
+ const small=()=>window.matchMedia('(max-width:900px)').matches;
+ const adaptive=()=>window.matchMedia('(max-width:1180px)').matches;
+ function syncPanels(){
+  const menuOpen=sidebar.classList.contains('open'),settingsOpen=inspector.classList.contains('open');
+  document.body.classList.toggle('settings-open',settingsOpen);
+  backdrop.classList.toggle('open',adaptive()&&(menuOpen||(!small()&&settingsOpen)));
+  menu.setAttribute('aria-expanded',String(menuOpen));settingsBtn.setAttribute('aria-expanded',String(settingsOpen));
+  handle.setAttribute('aria-expanded',String(settingsOpen));handle.querySelector('.handle-chevron').textContent=settingsOpen?'⌄':'⌃';
+  if(settingsOpen&&smash.enabled){document.body.classList.add('smash-minimized');}
+ }
+ function closeMenu(){sidebar.classList.remove('open');syncPanels()}
+ function closeSettings(){inspector.classList.remove('open');syncPanels()}
+ function openSettings(){closeMenu();inspector.classList.add('open');syncPanels()}
+ menu.setAttribute('aria-label','Choose a planet');menu.setAttribute('aria-controls','sidebar');
+ settingsBtn.setAttribute('aria-controls','planetInspector');settingsBtn.setAttribute('aria-label','Open planet settings');
+ handle.setAttribute('aria-controls','settings');
+ menu.addEventListener('click',()=>{if(sidebar.classList.contains('open'))closeSettings();syncPanels()});
+ settingsBtn.addEventListener('click',()=>{inspector.classList.contains('open')?closeSettings():openSettings()});
+ handle.addEventListener('click',()=>{inspector.classList.contains('open')?closeSettings():openSettings()});
+ backdrop.addEventListener('click',()=>{closeMenu();closeSettings()});
+ $('bodyList').addEventListener('click',e=>{if(e.target.closest('[data-id]')){closeMenu();if(small())openSettings()}});
+ $('homeBtn').addEventListener('click',()=>{closeMenu();closeSettings()});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();closeSettings()}});
+ $('smashBtn').addEventListener('click',()=>{closeMenu();closeSettings();document.body.classList.remove('smash-minimized');updatePeek()});
+ $('smashClose').addEventListener('click',()=>{document.body.classList.remove('smash-minimized');updatePeek()});
+ const aimButton=document.createElement('button');aimButton.type='button';aimButton.className='smash-aim-btn';aimButton.textContent='🎯 Aim at the planet';
+ $('smashDock').appendChild(aimButton);
+ aimButton.addEventListener('click',()=>{document.body.classList.add('smash-minimized');updatePeek()});
+ function updatePeek(){const weapon=SMASH_WEAPONS.find(w=>w.id===smash.weapon);peek.textContent='☄ Weapons · '+(weapon?weapon.label:'Tools');peek.setAttribute('aria-label','Open weapons and impact controls')}
+ peek.addEventListener('click',()=>{closeSettings();document.body.classList.remove('smash-minimized');updatePeek()});
+ $('weaponGrid').addEventListener('click',e=>{if(e.target.closest('[data-weapon]')&&small()){
+  document.body.classList.add('smash-minimized');updatePeek();showToast('Tap a planet to fire · Weapons to change tool');
+ }});
+ updatePeek();
+ // Swipe the planet settings handle up/down, without interfering with range sliders or scrolling.
+ let handleY=null;
+ handle.addEventListener('touchstart',e=>{if(e.touches.length===1)handleY=e.touches[0].clientY},{passive:true});
+ handle.addEventListener('touchend',e=>{if(handleY===null||!e.changedTouches.length)return;const dy=e.changedTouches[0].clientY-handleY;handleY=null;if(Math.abs(dy)<45)return;e.preventDefault();if(dy<0)openSettings();else closeSettings();},{passive:false});
+ window.addEventListener('resize',()=>{if(!adaptive()){closeMenu();closeSettings()}else syncPanels()},{passive:true});
+ document.querySelector('.hint').innerHTML='<b>Drag</b> to orbit · <b>Scroll</b> to zoom · <b>Tap</b> a planet to explore';
+ const help=$('help');help.querySelector('ul').insertAdjacentHTML('afterbegin','<li><b>On iPad or mobile:</b> drag with one finger to orbit, pinch with two fingers to zoom, and tap a planet to select it. Use ☰ for worlds, ⚙ for planet settings, and ☄ for Smash Mode. Tap a weapon, then tap the planet to fire; use the Weapons button to switch tools.</li>');
+ syncPanels();
+}
+// Capture touch gestures before the desktop pointer listeners; two-finger zoom must never count as a weapon tap.
+const touchNav={points:new Map(),start:null,last:null,moved:false,multitouch:false,pinch:0};
+function touchZoomBounds(){return {min:state.physicalScale?.002:1.3,max:2400}}
+function touchTap(x,y){
+ const cam=cameraData();
+ if(smash.enabled){const hit=smashPick(x,y,cam);if(hit){if(hit.p.id!==state.selected)selectBody(hit.p.id,false);fireSmash(hit.p,hit.normal,hit.point,x,y)}else showToast('Tap a visible planet, or pinch to zoom closer.');return;}
+ let best=null,bestDistance=Infinity;
+ for(const p of planets){if(p.integrity<=0)continue;const sc=worldScreen(p.pos,cam);if(!sc)continue;const distance=Math.hypot(x-sc.x,y-sc.y);const projected=p.r/sc.depth*canvas.clientHeight/(2*Math.tan(24*d2r));if(distance<Math.max(23,projected+16)&&distance<bestDistance){best=p;bestDistance=distance}}
+ if(best)selectBody(best.id);
+}
+canvas.addEventListener('pointerdown',e=>{
+ if(e.pointerType!=='touch')return;e.stopImmediatePropagation();e.preventDefault();
+ try{canvas.setPointerCapture(e.pointerId)}catch(_err){}
+ touchNav.points.set(e.pointerId,[e.clientX,e.clientY]);
+ if(touchNav.points.size===1){touchNav.start=[e.clientX,e.clientY];touchNav.last=[e.clientX,e.clientY];touchNav.moved=false;touchNav.multitouch=false;touchNav.pinch=0;}
+ else{touchNav.multitouch=true;touchNav.moved=true;touchNav.pinch=0;}
+},{capture:true,passive:false});
+canvas.addEventListener('pointermove',e=>{
+ if(e.pointerType!=='touch')return;e.stopImmediatePropagation();if(!touchNav.points.has(e.pointerId))return;e.preventDefault();
+ touchNav.points.set(e.pointerId,[e.clientX,e.clientY]);
+ if(touchNav.points.size>1){const [a,b]=[...touchNav.points.values()];const distance=Math.hypot(a[0]-b[0],a[1]-b[1]);if(touchNav.pinch&&distance>1){const bounds=touchZoomBounds();state.camera.dist=Math.max(bounds.min,Math.min(bounds.max,state.camera.dist*touchNav.pinch/distance));}touchNav.pinch=distance;touchNav.multitouch=true;touchNav.moved=true;return;}
+ if(touchNav.multitouch){touchNav.last=[e.clientX,e.clientY];return}
+ if(!touchNav.last)return;
+ const dx=e.clientX-touchNav.last[0],dy=e.clientY-touchNav.last[1];if(touchNav.start&&Math.hypot(e.clientX-touchNav.start[0],e.clientY-touchNav.start[1])>12)touchNav.moved=true;
+ if(touchNav.moved){state.camera.az-=dx*.0045;state.camera.el=Math.max(-1.5,Math.min(1.5,state.camera.el+dy*.0045));}
+ touchNav.last=[e.clientX,e.clientY];
+},{capture:true,passive:false});
+function endTouch(e,cancelled){if(e.pointerType!=='touch')return;e.stopImmediatePropagation();e.preventDefault();if(!touchNav.points.has(e.pointerId))return;
+ const shouldTap=!cancelled&&!touchNav.moved&&!touchNav.multitouch&&touchNav.points.size===1;
+ touchNav.points.delete(e.pointerId);touchNav.pinch=0;
+ if(shouldTap)touchTap(e.clientX,e.clientY);
+ if(touchNav.points.size===0){touchNav.start=null;touchNav.last=null;touchNav.moved=false;touchNav.multitouch=false}
+}
+canvas.addEventListener('pointerup',e=>endTouch(e,false),{capture:true,passive:false});
+canvas.addEventListener('pointercancel',e=>endTouch(e,true),{capture:true,passive:false});
+initMobileUI();
+
 </script>
 </body></html>
