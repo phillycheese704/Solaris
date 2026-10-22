@@ -1,0 +1,42 @@
+/* Solaris responsive observatory controls — touch, tablet, and phone */
+:root{--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px)}
+button{ -webkit-tap-highlight-color:transparent }
+.panel-backdrop,.inspector-handle,.weapon-peek{display:none}
+@media (pointer:coarse){.pill,.icon-btn,.action,.smash-action,.smash-x,.tab,.body,.weapon{min-height:44px}.body{height:48px}.tab{padding:13px 9px}.range{height:24px;background:transparent}.range::-webkit-slider-thumb{width:23px;height:23px}.toggle-row input{width:44px;height:26px}.toggle-row input:before{width:18px;height:18px;top:4px;left:4px}.toggle-row input:checked:before{transform:translateX(18px)}.weapon{min-height:72px}.smash-param input[type=range]{height:24px}.help-card{max-height:90dvh;overflow:auto}}
+@media (max-width:1180px){
+ .shell{inset:0;inset-block-end:0}.panel-backdrop{display:block;position:fixed;inset:0;background:#030813ae;backdrop-filter:blur(3px);opacity:0;visibility:hidden;pointer-events:none;z-index:6;transition:opacity .2s,visibility .2s}.panel-backdrop.open{opacity:1;visibility:visible;pointer-events:auto}
+ .sidebar{width:min(310px,85vw);z-index:10;transform:translateX(-105%);transition:transform .22s ease;border-right:1px solid #66809f55;padding-top:var(--safe-top)}.sidebar.open{transform:none}.sidebar .body{height:48px}.sidebar-bottom{display:block}
+ .inspector{z-index:9;width:min(350px,88vw);right:0;transform:translateX(103%);transition:transform .24s ease;box-shadow:-20px 0 70px #000a;padding-top:var(--safe-top);padding-bottom:var(--safe-bottom)}.inspector.open{transform:none}
+ .inspector-handle{display:flex;position:sticky;top:0;z-index:9;width:100%;min-height:52px;align-items:center;gap:12px;border:0;border-bottom:1px solid #ffffff20;background:#172639fa;color:#dcecff;padding:10px 18px;text-align:left;font-size:12px;font-weight:700;letter-spacing:.35px}.inspector-handle .handle-chevron{margin-left:auto;font-size:20px}.inspector-handle .grab-mark{font-size:17px;color:#8fc9ff}
+ .topbar{left:18px;right:18px;top:calc(14px + var(--safe-top));align-items:center;z-index:8}.top-controls{flex-direction:row;align-items:center;gap:7px}.view-title{font-size:20px}.topbar .pill.optional{display:none}.mobile-toggle{display:flex}.top-controls .pill{min-height:43px}
+ .timebar{left:50%;transform:translateX(-50%);width:min(590px,calc(100vw - 36px));min-width:0;bottom:calc(17px + var(--safe-bottom));padding:11px 15px;z-index:5}
+ .smash-dock{left:18px;top:calc(87px + var(--safe-top));width:260px;max-height:calc(100dvh - 215px - var(--safe-bottom));z-index:7}
+ .hint{left:20px;bottom:calc(143px + var(--safe-bottom))}.legend{display:none}.hud-center{top:100px}
+ .weapon-peek{position:fixed;z-index:8;bottom:calc(146px + var(--safe-bottom));left:16px;border:1px solid #ffab8480;border-radius:24px;background:#4d2c33f5;box-shadow:0 8px 24px #0009;color:#ffe7d9;padding:11px 15px;font-size:12px;font-weight:750;pointer-events:auto}
+ body.smash-on.smash-minimized .weapon-peek{display:block}body.smash-on.smash-minimized .smash-dock{display:none}
+ .smash-aim-btn{display:flex;align-items:center;justify-content:center;min-height:40px;border:1px solid #ffab8477;color:#ffe4d3;background:#5b3939;border-radius:9px;font-size:12px;font-weight:700;width:100%;margin:10px 0 0}
+ body.settings-open .timebar{opacity:0;pointer-events:none}body.settings-open .smash-dock{display:none}
+}
+@media (max-width:900px){
+ .inspector{top:auto;bottom:0;right:0;width:100%;height:calc(61px + var(--safe-bottom));padding:0 0 var(--safe-bottom);border-left:0;border-top:1px solid #8fa5c444;border-radius:17px 17px 0 0;transform:none;overflow:hidden;box-shadow:0 -12px 45px #000a;background:#0f1825fa}
+ .inspector.open{height:min(65dvh,650px);height:min(65svh,650px);overflow:auto;overscroll-behavior:contain}
+ .inspector-handle{min-height:60px;justify-content:center;position:sticky;top:0;background:#182637fb}.inspector-handle:before{content:'';position:absolute;top:6px;left:calc(50% - 23px);width:46px;height:4px;border-radius:5px;background:#667d92}.inspector-handle .grab-mark{font-size:0}.inspector-handle .grab-mark:after{content:'◉';font-size:15px}.inspector .insp-header{padding:12px 18px 7px}.inspector .planet-preview{height:90px}.inspector .insp-name{font-size:26px}.inspector .stat-grid{grid-template-columns:repeat(4,minmax(0,1fr));padding:0 12px 10px;gap:5px}.inspector .stat{padding:9px 5px}.inspector .stat-val{font-size:13px}.inspector .stat-lbl{font-size:8px}
+ .topbar{left:12px;right:12px;top:calc(8px + var(--safe-top));gap:7px}.topbar .eyebrow{display:none}.view-title{font-size:16px;margin-top:0;white-space:nowrap;max-width:175px;overflow:hidden;text-overflow:ellipsis}.top-controls{gap:5px}.top-controls .pill{min-height:42px;padding:0 10px}
+ .timebar{width:calc(100% - 22px);max-width:560px;bottom:calc(70px + var(--safe-bottom));padding:9px 11px}.timebar .time-top{margin-bottom:7px}.timebar .time-title{display:none}.timebar .date-text{font-size:14px}.playtools{gap:5px}.playtools .icon-btn{width:37px;height:37px}.playtools .icon-btn.play{width:42px}.time-bot{gap:9px}.time-bot .tiny{display:none}.time-bot input[type=range]{min-width:40px}.time-bot input[type=date]{font-size:16px;width:130px;min-width:0;min-height:36px;padding:3px 5px}.time-bot #todayBtn{width:38px;height:38px;flex-shrink:0}
+ .hud-center{display:none}.hint,.legend{display:none}.toast{top:calc(64px + var(--safe-top));max-width:calc(100vw - 30px);text-align:center}.world-label{font-size:10px}
+ .smash-dock{top:calc(70px + var(--safe-top));left:10px;width:min(298px,calc(100vw - 20px));max-height:calc(100dvh - 257px - var(--safe-bottom));border-radius:13px;padding:12px}.smash-dock .weapon{min-height:64px}.smash-dock .weapon-name{font-size:10px}.smash-x{min-width:38px;min-height:38px}
+ .weapon-peek{bottom:calc(182px + var(--safe-bottom));left:12px}
+ .smash-aim-btn{min-height:42px}
+ body.settings-open .panel-backdrop{visibility:hidden;opacity:0;pointer-events:none}body.settings-open .smash-dock{display:none}body.settings-open .weapon-peek{display:none}
+}
+@media (max-width:560px){
+ .view-title{font-size:0;max-width:83px}.view-title:after{content:'SOLARIS';font-size:16px;letter-spacing:1.5px}
+ .top-controls .pill{width:39px;min-width:39px;height:42px;padding:0;justify-content:center;font-size:0}
+ #menuBtn,#settingsBtn{font-size:19px}#helpBtn{font-size:0}#helpBtn:after{content:"?";font-size:21px}#smashBtn:after{content:'☄';font-size:22px}#homeBtn:after{content:'⌂';font-size:24px}#homeBtn{font-size:0}
+ .rate-box{font-size:10px;min-width:62px}.timebar .date-text{font-size:12px}.time-top{gap:3px}.time-bot input[type=date]{width:126px}
+ .smash-dock .weapon{min-height:58px}
+ .help-card{padding:19px}
+}
+@media (max-width:360px){.topbar{left:8px;right:8px}.top-controls{gap:3px}.top-controls .pill{width:36px;min-width:36px}.view-title{max-width:76px}.view-title:after{font-size:14px}.rate-box{min-width:50px}.timebar .date-text{font-size:11px}.time-bot input[type=date]{width:114px}.time-bot{gap:5px}}
+@media (max-height:540px) and (max-width:900px){.inspector{height:calc(49px + var(--safe-bottom))}.inspector.open{height:80dvh}.inspector-handle{min-height:49px}.timebar{bottom:calc(53px + var(--safe-bottom));padding:6px 9px}.time-top{margin-bottom:2px}.weapon-peek{bottom:calc(145px + var(--safe-bottom))}.smash-dock{top:calc(57px + var(--safe-top));max-height:calc(100dvh - 180px)}.topbar{top:calc(4px + var(--safe-top))}}
+@media (prefers-reduced-motion:reduce){.sidebar,.inspector,.panel-backdrop{transition:none!important}}
