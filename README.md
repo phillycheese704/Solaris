@@ -8,7 +8,7 @@ Open **[index.html](index.html)** in a modern desktop browser (Chrome, Edge or F
 
 **OR**
 open 
-https://phillycheese704.github.io/solaris/
+https://phillycheese704.github.io/Solaris/
 
 ## Features
 
