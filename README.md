@@ -6,6 +6,9 @@
 
 Open **[index.html](index.html)** in a modern desktop browser (Chrome, Edge or Firefox). No installation, build tools, external dependencies or online assets are required. A GPU and WebGL 2 support are recommended.
 
+**OR**
+open phillycheese704.github.io/solaris/
+
 ## Features
 
 - Explore the Sun and eight planets with interactive 3D camera movement, tracking and zoom.
@@ -33,17 +36,3 @@ Open **[index.html](index.html)** in a modern desktop browser (Chrome, Edge or F
 Solaris is an interactive visualization and creative sandbox, **not** scientific-quality ephemeris or impact software. Planetary positions are approximate, textures are original illustrative art, and destruction effects are stylized.
 
 Orbital reference: [JPL — Approximate Positions of the Planets](https://ssd.jpl.nasa.gov/planets/approx_pos.html).
-
-## Files
-
-- `index.html` — complete standalone playable simulator.
-- `source/solaris.js` — extracted JavaScript source for easier reading; changing it alone will not update the embedded code in `index.html`.
-- `.gitignore` — common local file exclusions.
-
-## Publish with GitHub Pages
-
-Go to **Settings → Pages**. Under **Build and deployment**, select **Deploy from a branch**, pick `main` and `/(root)`, then save. When Pages is deployed, your site URL should be `https://phillycheese704.github.io/Solaris/`.
-
-Solaris is an original project inspired by the general genre of planet-destruction sandbox games; it is not affiliated with *Solar Smash* and does not use its game assets.
-
-No open-source license has been chosen yet.
