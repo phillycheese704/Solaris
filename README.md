@@ -4,7 +4,7 @@
 
 ## Run
 
-Open **[index.html](index.html)** in a modern desktop browser (Chrome, Edge or Firefox). No installation, build tools, external dependencies or online assets are required. A GPU and WebGL 2 support are recommended.
+Open **[index.html](index.html)** in a modern WebGL 2 browser (including Safari on iPad/iPhone, Chrome/Edge/Firefox on desktop, or a compatible Android browser). No installation, build tools, external dependencies or online assets are required. A GPU and WebGL 2 support are recommended.
 
 **OR**
 open 
@@ -24,9 +24,11 @@ https://phillycheese704.github.io/Solaris/
 
 | Action | Control |
 | --- | --- |
-| Orbit camera | Drag |
-| Zoom | Mouse wheel / trackpad scroll |
-| Choose a planet | Click a planet or use the sidebar |
+| Orbit camera | Drag with a mouse or one finger |
+| Zoom | Mouse wheel / trackpad scroll or two-finger pinch |
+| Choose a planet | Click/tap a planet or use the ☰ planet list |
+| Planet settings (iPad/mobile) | Tap ⚙ or the bottom planet-settings handle |
+| Smash Mode (iPad/mobile) | Pick a weapon, tap a planet, then use Weapons to change tools |
 | Pause/resume | Space |
 | Overview | H or Overview |
 | Destruction sandbox | SMASH MODE; select a tool and click a planet |
