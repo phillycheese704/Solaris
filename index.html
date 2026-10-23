@@ -67,6 +67,31 @@ button{ -webkit-tap-highlight-color:transparent }
 @media (max-height:540px) and (max-width:900px){.inspector{height:calc(49px + var(--safe-bottom))}.inspector.open{height:80dvh}.inspector-handle{min-height:49px}.timebar{bottom:calc(53px + var(--safe-bottom));padding:6px 9px}.time-top{margin-bottom:2px}.weapon-peek{bottom:calc(145px + var(--safe-bottom))}.smash-dock{top:calc(57px + var(--safe-top));max-height:calc(100dvh - 180px)}.topbar{top:calc(4px + var(--safe-top))}}
 @media (prefers-reduced-motion:reduce){.sidebar,.inspector,.panel-backdrop{transition:none!important}}
 
+
+/* Solaris Dynamics interface — compact, touchable, per-world controls */
+#smashDock,#weaponPeek,#smashBtn,.smash-aim-btn{display:none!important}
+.tabs{display:flex;overflow-x:auto;scrollbar-width:thin;gap:2px;flex-wrap:nowrap}.tabs .tab{flex:0 0 auto;min-width:max-content;padding:11px 10px}
+.planet-pulse{margin:12px 14px;padding:14px;background:linear-gradient(145deg,rgba(22,47,65,.97),rgba(9,23,35,.95));border:1px solid rgba(84,168,208,.3);border-radius:13px;box-shadow:0 8px 35px rgba(0,0,0,.2)}
+.pulse-top{display:flex;justify-content:space-between;gap:8px;font-size:9px;letter-spacing:.12em;color:#a9bed0;font-weight:750}.pulse-top b{color:#7edcb0;letter-spacing:0;white-space:nowrap}
+.pulse-number{font-size:clamp(22px,3vw,32px);font-weight:800;letter-spacing:-.05em;font-variant-numeric:tabular-nums;margin-top:7px;color:#e9f6ff}.pulse-sub{font-size:10px;color:#adbac8;line-height:1.55;margin-top:4px}
+.pulse-track{height:4px;background:#243547;border-radius:5px;overflow:hidden;margin-top:12px}.pulse-track span{display:block;height:100%;background:linear-gradient(90deg,#ffae77,#78d9b7);transition:width .3s}.pulse-foot{font-size:10px;color:#9ac4d6;margin-top:6px}
+.sandbox-coordinates{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:10px 0 13px}.sandbox-coordinates label{font-size:10px;color:#acc0d0}.sandbox-coordinates input{margin-top:5px;border:1px solid #40556a;background:#081622;color:#f1f6ff;width:100%;min-width:0;border-radius:7px;padding:9px 5px;font-size:12px;font-variant-numeric:tabular-nums}
+.sb-select{background:#132535;color:white;border:1px solid #425e75;border-radius:7px;flex:1;min-width:0;max-width:100%;padding:8px}.action.danger{border-color:#a95043!important;background:linear-gradient(140deg,#572b2d,#302028)!important;color:#ffd7c9!important}
+.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.action-grid .action{padding:10px 8px;min-height:40px;font-size:11px}
+.sandbox-readout{border:1px solid rgba(90,160,189,.24);border-radius:10px;padding:13px;margin-top:12px}.sandbox-readout>b{font-size:12px}.sandbox-readout>strong{float:right;font-variant-numeric:tabular-nums;color:#7fdec5}.sandbox-readout .tip{clear:both;padding-top:10px}
+.sandbox-events{font-size:11px;line-height:1.55;color:#c0cad9;max-height:145px;overflow:auto}.sandbox-events>div{margin-bottom:9px;padding-bottom:6px;border-bottom:1px solid #283b4b}.sandbox-events span{color:#7196ad;font-size:9px;white-space:nowrap}
+.top-controls #freeCamBtn.active{color:#8effda;background:#133d3b;border-color:#5bd4a6}.physics-badge{font-size:10px;letter-spacing:.09em;color:#a1d6c7;margin:6px auto 0;opacity:.92}
+.flight-pad{display:none;position:fixed;z-index:25;bottom:calc(128px + env(safe-area-inset-bottom,0px));left:clamp(12px,19vw,300px);border:1px solid #477a87;background:#0b1b2de8;border-radius:13px;padding:8px;box-shadow:0 12px 30px #000a;touch-action:none}.flight-label{font-size:9px;color:#84c8d2;letter-spacing:.12em;text-align:center;margin:3px 0 7px}.flight-controls{display:grid;grid-template-columns:repeat(3,43px);gap:5px}.flight-controls button{background:#15334a;border:1px solid #496878;color:#e7faff;border-radius:7px;width:43px;height:40px;touch-action:none;font-size:12px}.flight-controls button:active{background:#366a80}body:has(#freeCamBtn.active) .flight-pad{display:block}
+body:has(#freeCamBtn.active) canvas#space{cursor:crosshair}
+@media(min-width:901px){.flight-pad{left:clamp(245px,21vw,380px)}.top-controls .freecam-pill{display:inline-flex}}
+@media(max-width:1180px){.tabs{padding-left:3px;padding-right:3px}.tabs .tab{font-size:11px}.planet-pulse{margin:10px 10px}.pulse-number{font-size:24px}}
+@media(max-width:900px){.top-controls #freeCamBtn{display:inline-flex!important;padding:8px!important;font-size:11px;min-width:90px}.flight-pad{left:12px;bottom:calc(131px + env(safe-area-inset-bottom,0px))}.planet-pulse{margin:8px 12px}.tabs{scroll-snap-type:x mandatory}.tabs .tab{scroll-snap-align:start}}
+@media(max-width:460px){.physics-badge{font-size:8px;max-width:70vw}.top-controls #freeCamBtn{min-width:75px;font-size:10px;padding:7px!important}.flight-pad{bottom:calc(130px + env(safe-area-inset-bottom,0px))}.flight-controls{grid-template-columns:repeat(3,35px);gap:3px}.flight-controls button{width:35px;height:34px}.action-grid{gap:6px}.action-grid .action{font-size:10px;padding:8px 5px}.sandbox-coordinates input{font-size:11px}}
+
+/* All five planet categories must remain discoverable without horizontal scrolling. */
+.tabs{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));overflow:visible!important;gap:2px}.tabs .tab{min-width:0!important;white-space:normal!important;overflow-wrap:break-word;padding:10px 3px!important;font-size:10px!important}
+@media(max-width:460px){.tabs .tab{padding:11px 5px!important;font-size:11px!important}}
+
 </style></head>
 <body>
 <canvas id="space" aria-label="Interactive WebGL solar system simulator"></canvas>
@@ -74,7 +99,7 @@ button{ -webkit-tap-highlight-color:transparent }
 <div id="statusSplash">PLANET DESTROYED</div>
 <div class="vignette"></div><div class="noise"></div><div class="labels" id="labels"></div>
 <div class="shell"><div class="panel-backdrop" id="panelBackdrop" aria-hidden="true"></div>
-<aside class="sidebar" id="sidebar"><div class="brand"><div class="brandline"><div class="logo">☼</div><div><div class="brand-name">SOLARIS</div><div class="brand-sub">ORBITAL SIMULATOR + IMPACT LAB</div></div></div></div><div class="sectitle">DISCOVER THE SYSTEM</div><div id="bodyList" class="body-list"></div><div class="sidebar-bottom"><div class="mini-eyebrow">OBSERVATORY STATUS</div><div class="mini-value"><span style="color:#77d7a3">●</span> &nbsp; SIMULATION ACTIVE</div><div class="mini-progress"><span></span></div><div class="tip" style="margin-bottom:0">8 planets · 1 star · 1 moon<br/>Newtonian experimental mode</div></div></aside>
+<aside class="sidebar" id="sidebar"><div class="brand"><div class="brandline"><div class="logo">☼</div><div><div class="brand-name">SOLARIS</div><div class="brand-sub">DYNAMIC PLANETARY SIMULATOR</div></div></div></div><div class="sectitle">DISCOVER THE SYSTEM</div><div id="bodyList" class="body-list"></div><div class="sidebar-bottom"><div class="mini-eyebrow">OBSERVATORY STATUS</div><div class="mini-value"><span style="color:#77d7a3">●</span> &nbsp; SIMULATION ACTIVE</div><div class="mini-progress"><span></span></div><div class="tip" style="margin-bottom:0">8 planets · 1 star · 1 moon<br/>Newtonian experimental mode</div></div></aside>
 <header class="topbar"><div><div class="eyebrow">INTERACTIVE ASTRONOMY / SOLAR SYSTEM</div><div class="view-title" id="viewTitle">Orbital overview</div></div><div class="top-controls"><button class="pill mobile-toggle" id="menuBtn">☰</button><button class="pill mobile-toggle" id="settingsBtn" title="Planet settings">⚙</button><button class="pill optional" id="orbitBtn" aria-pressed="true">◎ Orbits</button><button class="pill optional" id="labelBtn" aria-pressed="true">⌖ Labels</button><button class="pill smash-toggle" id="smashBtn" title="Toggle destruction sandbox">☄ SMASH MODE</button><button class="pill" id="homeBtn">↗ Overview</button><button class="pill" id="helpBtn">? Help</button></div></header>
 <div class="hud-center"><div class="hud-overline">HELIOCENTRIC VIEW</div><div class="hud-title">OUR SOLAR SYSTEM</div></div>
 <div class="hint"><b>Drag</b> orbit camera &nbsp;·&nbsp; <b>Scroll</b> zoom &nbsp;·&nbsp; <b>Click</b> a planet to explore</div><div class="legend" id="scaleLegend">Visualization scale enlarged for readability. Orbital motion uses astronomical elements.</div><div class="toast" id="toast"></div>
@@ -93,7 +118,7 @@ button{ -webkit-tap-highlight-color:transparent }
 <div class="smash-tip" id="weaponTip">Click a planet's visible surface. Select a world on the left and zoom in for precision. <b>R</b> repairs the selected world.</div>
 </section>
 <button id="weaponPeek" class="weapon-peek" type="button" aria-label="Open weapons">☄ Weapons</button>
-<aside class="inspector" id="planetInspector"><button type="button" id="inspectorHandle" class="inspector-handle" aria-expanded="false"><span class="grab-mark">◉</span><span id="handleLabel">EARTH · SETTINGS</span><span class="handle-chevron">⌃</span></button><div class="insp-header"><div class="insp-eyebrow" id="inspEyebrow">PLANETARY PROFILE / 03</div><div class="insp-name" id="inspName">Earth</div><div class="insp-desc" id="inspDesc">Our pale blue dot.</div><div class="planet-preview"><div class="preview-ball" id="previewBall"></div><div class="preview-rings" id="previewRings"></div><div class="preview-caption">ILLUSTRATIVE TEXTURE</div></div></div><div class="stat-grid" id="statGrid"></div><div class="tabs" id="tabs"><button class="tab active" data-tab="appearance">Appearance</button><button class="tab" data-tab="orbit">Orbit</button><button class="tab" data-tab="physics">Physics</button></div><div class="settings" id="settings"></div><div class="citation"><strong>ABOUT ACCURACY</strong><br/>Planet positions: JPL approximate Keplerian elements (1800–2050), not telescope-grade ephemerides. Textures are artist-generated geographic/planetary approximations, not NASA imagery. Impact Lab destruction is a cinematic game simulation, not a validated physical model. Gravity mode is an experimental point-mass model with a fixed Sun. <a target="_blank" rel="noopener noreferrer" href="https://ssd.jpl.nasa.gov/planets/approx_pos.html">JPL source ↗</a></div></aside>
+<aside class="inspector" id="planetInspector"><button type="button" id="inspectorHandle" class="inspector-handle" aria-expanded="false"><span class="grab-mark">◉</span><span id="handleLabel">EARTH · SETTINGS</span><span class="handle-chevron">⌃</span></button><div class="insp-header"><div class="insp-eyebrow" id="inspEyebrow">PLANETARY PROFILE / 03</div><div class="insp-name" id="inspName">Earth</div><div class="insp-desc" id="inspDesc">Our pale blue dot.</div><div class="planet-preview"><div class="preview-ball" id="previewBall"></div><div class="preview-rings" id="previewRings"></div><div class="preview-caption">ILLUSTRATIVE TEXTURE</div></div></div><div class="stat-grid" id="statGrid"></div><div class="tabs" id="tabs"><button class="tab active" data-tab="appearance">Appearance</button><button class="tab" data-tab="orbit">Orbit</button><button class="tab" data-tab="physics">Physics</button></div><div class="settings" id="settings"></div><div class="citation"><strong>ABOUT ACCURACY</strong><br/>Planet positions: JPL approximate Keplerian elements (1800–2050), not telescope-grade ephemerides. Textures are artist-generated geographic/planetary approximations, not NASA imagery. Orbital physics and collisions use experimental approximations; the environment and population models are illustrative, not real-world forecasts. <a target="_blank" rel="noopener noreferrer" href="https://ssd.jpl.nasa.gov/planets/approx_pos.html">JPL source ↗</a></div></aside>
 <div class="timebar"><div class="time-top"><div><div class="time-title">SIMULATION DATE / UTC</div><div class="date-text" id="dateText">22 OCT 2026</div></div><div class="playtools"><button class="icon-btn" id="rewindBtn" title="Slow down">«</button><button class="icon-btn play" id="playBtn" title="Play / pause">❚❚</button><button class="icon-btn" id="fwdBtn" title="Speed up">»</button><span class="rate-box" id="speedText">2 days/s</span></div></div><div class="time-bot"><span class="tiny">TIME</span><input aria-label="Time speed" class="range" type="range" min="-2" max="3" step="0.02" value="0.30103" id="speedSlider"/><input type="date" id="datePicker" min="1800-01-01" max="2050-12-31" title="Jump to date"/><button class="icon-btn" id="todayBtn" title="Current date">↺</button></div></div>
 </div>
 <div class="help" id="help"><div class="help-card"><button class="help-close" id="closeHelp">×</button><div class="eyebrow">SOLARIS / FLIGHT MANUAL</div><h2>Welcome to the observatory</h2><p>Explore eight planets on approximate real-date orbits, or run an experimental interactive gravity sandbox.</p><ul><li><b>Drag</b> the sky to orbit your camera; <b>mouse wheel</b> zooms.</li><li><b>Click a planet</b> (or select from the sidebar) to focus it.</li><li><b>Space</b> pauses / resumes. <b>H</b> returns to overview.</li><li>Change appearance, orbit, and gravity variables in the right panel.</li><li><b>Readability mode</b> enlarges planet sizes and compresses orbit distances. Physical mode uses one consistent distance-and-radius scale, so bodies may be almost invisible in overview; select a planet to inspect it.</li><li>Change the date or time speed from the bottom control strip.</li><li><b>SMASH MODE</b> opens the cinematic weapons lab: target a planet surface to fire, adjust energy and radius, deploy shields, or restore damage. These effects are intentionally arcade physics, not realistic impact simulations.</li></ul><button class="action" id="startBtn">Begin exploring →</button></div></div>
@@ -124,7 +149,7 @@ function elements(p,time=state.date){const t=(time-J2000)/DAY/36525,el=p.orb[0].
 function kepler(p,time=state.date){if(!p.orb)return [0,0,0];const [a,e,I,L,bar,om]=elements(p,time),m=((L-bar)%360+360)%360*d2r;let E=m;for(let k=0;k<12;k++){const diff=(E-e*Math.sin(E)-m)/(1-e*Math.cos(E));E-=diff;if(Math.abs(diff)<1e-12)break;}const nu=Math.atan2(Math.sqrt(1-e*e)*Math.sin(E),Math.cos(E)-e),r=a*(1-e*Math.cos(E)),node=om*d2r,incl=I*d2r,arg=(bar-om)*d2r+nu;const cs=Math.cos(arg),sn=Math.sin(arg),cn=Math.cos(node),nn=Math.sin(node),ci=Math.cos(incl),si=Math.sin(incl);return [r*(cn*cs-nn*sn*ci),r*sn*si,r*(nn*cs+cn*sn*ci)];}
 function updatePhysical(){for(const p of planets){if(p.orb){if(state.gravity&&state.sim)p.physical=state.sim.bodies[p.id].x.slice();else p.physical=kepler(p);}else p.physical=[0,0,0];p.pos=posWorld(p.physical);p.a=p.orb?elements(p)[0]:0;p.r=radiusWorld(p);}let earth=planets.find(p=>p.id==='earth'),moon=planets.find(p=>p.id==='moon');let d=(state.date-J2000)/DAY;let ang=d/27.3217*Math.PI*2+1.0;const distance=earth.r+1.12;moon.physical=V.add(earth.physical,[.00257*Math.cos(ang),.00022*Math.sin(ang*.97),.00257*Math.sin(ang)]);moon.pos=state.physicalScale?posWorld(moon.physical):V.add(earth.pos,[distance*Math.cos(ang),distance*.09*Math.sin(ang*.97),distance*Math.sin(ang)]);}
 function initGravity(){const bodies={};for(const p of planets.filter(p=>p.orb)){let h=.02,x=kepler(p,state.date),prev=kepler(p,state.date-h*DAY),next=kepler(p,state.date+h*DAY);bodies[p.id]={x:x.slice(),v:V.mul(V.sub(next,prev),1/(2*h)),mass:p.mass};}state.sim={bodies};}
-function gravityAccel(){const obj=state.sim.bodies,arr=Object.entries(obj),result={};for(const [id,a] of arr){let r=V.len(a.x),acc=V.mul(a.x,-G/(r*r*r+1e-15));for(const [id2,b] of arr){if(id===id2)continue;let d=V.sub(b.x,a.x),len=V.len(d);acc=V.add(acc,V.mul(d,G*b.mass*planets.find(p=>p.id===id2).opts.mass/(len**3+1e-14)));}result[id]=acc;}return result;}
+function gravityAccel(){const obj=state.sim.bodies,arr=Object.entries(obj),result={};for(const [id,a] of arr){let r=V.len(a.x),acc=V.mul(a.x,-G*(typeof sandbox!=="undefined"?sandbox.sunMass:1)/(r*r*r+1e-15));for(const [id2,b] of arr){if(id===id2)continue;let d=V.sub(b.x,a.x),len=V.len(d);acc=V.add(acc,V.mul(d,G*b.mass*planets.find(p=>p.id===id2).opts.mass*(planets.find(p=>p.id===id2).integrity>0?1:0)/(len**3+1e-14)));}result[id]=acc;}return result;}
 function advanceGravity(dt){if(!state.sim)initGravity();let n=Math.max(1,Math.ceil(Math.abs(dt)/1.5));n=Math.min(n,300);let h=dt/n;for(let k=0;k<n;k++){let acc=gravityAccel();for(const [id,b] of Object.entries(state.sim.bodies)){b.x=V.add(b.x,V.add(V.mul(b.v,h),V.mul(acc[id],.5*h*h)));b.v=V.add(b.v,V.mul(acc[id],.5*h));}acc=gravityAccel();for(const [id,b] of Object.entries(state.sim.bodies))b.v=V.add(b.v,V.mul(acc[id],.5*h));}}
 function matPersp(fov,aspect,near,far){let f=1/Math.tan(fov/2);return new Float32Array([f/aspect,0,0,0,0,f,0,0,0,0,(far+near)/(near-far),-1,0,0,2*far*near/(near-far),0]);}
 function cameraData(){const c=state.camera,ce=Math.cos(c.el),pos=V.add(c.target,[Math.sin(c.az)*ce*c.dist,Math.sin(c.el)*c.dist,Math.cos(c.az)*ce*c.dist]);const fw=V.norm(V.sub(c.target,pos)),right=V.norm(V.cross(fw,[0,1,0])),up=V.cross(right,fw);const v=new Float32Array([right[0],up[0],-fw[0],0,right[1],up[1],-fw[1],0,right[2],up[2],-fw[2],0,-V.dot(right,pos),-V.dot(up,pos),V.dot(fw,pos),1]);return {pos,fw,right,up,view:v,proj:matPersp(48*d2r,canvas.width/canvas.height,state.physicalScale?.00003:.03,6400)};}
@@ -156,7 +181,7 @@ const sphereFS=`#version 300 es
 precision highp float;precision highp int;
 in vec3 vNorm,vWorld,vLocal;in vec2 vUv;out vec4 color;
 uniform sampler2D uTex,uNight;uniform vec3 uCamera,uCenter,uTint;
-uniform int uKind,uHitCount;uniform float uAtmo,uNights,uOpacity,uIntegrity;
+uniform int uKind,uHitCount;uniform float uAtmo,uNights,uOpacity,uIntegrity,uHeat;
 uniform vec4 uHitDirRad[20],uHitMeta[20];
 float randhash(vec3 p){return fract(sin(dot(p,vec3(12.9898,78.233,47.125)))*43758.5453);}
 void main(){
@@ -191,6 +216,13 @@ void main(){
     rgb+=vec3(2.6,.42,.052)*heat*max(.14,diffuse);
     if(typ>2.5)rgb+=vec3(.3,.24,1.1)*outer*powr*.2;
   }
+ }
+ float molten=clamp((uHeat-520.)/1050.,0.,1.);
+ float frozen=clamp((-uHeat-65.)/150.,0.,1.);
+ if(uKind!=1&&uKind!=3){
+  float lava=max(0.,sin(vLocal.x*70.+sin(vLocal.y*44.))*sin(vLocal.z*92.));
+  rgb=mix(rgb,vec3(.32,.055,.018)+vec3(1.8,.25,.02)*pow(lava,8.),molten*.86);
+  rgb=mix(rgb,vec3(.65,.81,.90)*(.2+.8*diffuse),frozen*.66);
  }
  float f=pow(1.-max(dot(V,N),0.),4.1);
  if(uKind==2)rgb+=uAtmo*f*(.15+.8*lam)*vec3(.18,.45,1.0)*1.55;
@@ -232,10 +264,10 @@ function resize(){const dpr=Math.min(devicePixelRatio||1,window.matchMedia('(poi
 function render(){resize();const cam=cameraData();gl.clearColor(.009,.015,.028,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);if(state.showStars){gl.disable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);gl.useProgram(pr.star);common(pr.star,cam);U1(pr.star,'PixelRatio',Math.min(devicePixelRatio||1,1.8));gl.bindVertexArray(starsVao);gl.drawArrays(gl.POINTS,0,starData.length/4);gl.disable(gl.BLEND);gl.enable(gl.DEPTH_TEST);}
 if(state.showOrbits){gl.useProgram(pr.line);common(pr.line,cam);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);for(const p of planets.filter(x=>x.orb)){let b=paths[p.id];if(!b)continue;U4(pr.line,'Color',[...hex3(p.color),p.id===state.selected?.34:.105]);gl.bindVertexArray(b.vao);gl.drawArrays(gl.LINE_STRIP,0,b.count);}gl.disable(gl.BLEND);}
 const ps=[...planets].sort((a,b)=>V.len(V.sub(b.pos,cam.pos))-V.len(V.sub(a.pos,cam.pos)));gl.useProgram(pr.sphere);common(pr.sphere,cam);U3(pr.sphere,'Camera',cam.pos);Ui(pr.sphere,'Tex',0);Ui(pr.sphere,'Night',1);gl.bindVertexArray(sphere.vao);
-for(let p of ps){if(p.integrity<=0)continue;U3(pr.sphere,'Center',p.pos);U3(pr.sphere,'Tint',hex3(p.color));U1(pr.sphere,'Radius',p.r);U1(pr.sphere,'Tilt',p.opts.tilt*d2r);U1(pr.sphere,'Rotation',((state.date-J2000)/DAY/(p.day||1))*2*Math.PI*p.opts.spin%(Math.PI*2));Ui(pr.sphere,'Kind',p.id==='sun'?1:p.id==='earth'?2:0);U1(pr.sphere,'Atmo',p.opts.atmo?1:0);U1(pr.sphere,'Nights',p.opts.night?1:0);U1(pr.sphere,'Opacity',1); U1(pr.sphere,'Integrity',p.integrity/100); uploadHits(p);bindTex(textures[p.tex],0);bindTex(textures.night,1);gl.drawElements(gl.TRIANGLES,sphere.count,gl.UNSIGNED_SHORT,0);}
-if(!state.physicalScale){let earth=planets.find(p=>p.id==='earth');if(earth.opts.clouds&&earth.integrity>90){gl.useProgram(pr.sphere);common(pr.sphere,cam);U3(pr.sphere,'Camera',cam.pos);U3(pr.sphere,'Center',earth.pos);U3(pr.sphere,'Tint',[.8,.9,1]);U1(pr.sphere,'Radius',earth.r*1.019);U1(pr.sphere,'Tilt',earth.opts.tilt*d2r);U1(pr.sphere,'Rotation',(state.date-J2000)/DAY*2*Math.PI/.99726968*.995%(2*Math.PI));Ui(pr.sphere,'Kind',3);U1(pr.sphere,'Atmo',0);U1(pr.sphere,'Nights',0);U1(pr.sphere,'Opacity',.62);Ui(pr.sphere,'HitCount',0);U1(pr.sphere,'Integrity',1);bindTex(textures.clouds,0);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false);gl.bindVertexArray(sphere.vao);gl.drawElements(gl.TRIANGLES,sphere.count,gl.UNSIGNED_SHORT,0);gl.depthMask(true);gl.disable(gl.BLEND);}}
+for(let p of ps){if(p.integrity<=0)continue;U3(pr.sphere,'Center',p.pos);U3(pr.sphere,'Tint',hex3(p.color));U1(pr.sphere,'Radius',p.r);U1(pr.sphere,'Tilt',p.opts.tilt*d2r);U1(pr.sphere,'Rotation',((state.date-J2000)/DAY/(p.day||1))*2*Math.PI*p.opts.spin%(Math.PI*2));Ui(pr.sphere,'Kind',p.id==='sun'?1:p.id==='earth'?2:0);U1(pr.sphere,'Atmo',p.opts.atmo?(p.env?Math.min(2,Math.sqrt(p.env.atm/Math.max(.15,climateDefaults[p.id][1]))):1):0);U1(pr.sphere,'Nights',p.opts.night?1:0);U1(pr.sphere,'Opacity',1); U1(pr.sphere,'Integrity',p.integrity/100); U1(pr.sphere,'Heat',p.env?.temp??15); uploadHits(p);bindTex(textures[p.tex],0);bindTex(textures.night,1);gl.drawElements(gl.TRIANGLES,sphere.count,gl.UNSIGNED_SHORT,0);}
+if(!state.physicalScale){let earth=planets.find(p=>p.id==='earth');if(earth.opts.clouds&&earth.integrity>90){gl.useProgram(pr.sphere);common(pr.sphere,cam);U3(pr.sphere,'Camera',cam.pos);U3(pr.sphere,'Center',earth.pos);U3(pr.sphere,'Tint',[.8,.9,1]);U1(pr.sphere,'Radius',earth.r*1.019);U1(pr.sphere,'Tilt',earth.opts.tilt*d2r);U1(pr.sphere,'Rotation',(state.date-J2000)/DAY*2*Math.PI/.99726968*.995%(2*Math.PI));Ui(pr.sphere,'Kind',3);U1(pr.sphere,'Atmo',0);U1(pr.sphere,'Nights',0);U1(pr.sphere,'Opacity',.62);Ui(pr.sphere,'HitCount',0);U1(pr.sphere,'Integrity',1);U1(pr.sphere,'Heat',earth.env?.temp??15);bindTex(textures.clouds,0);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false);gl.bindVertexArray(sphere.vao);gl.drawElements(gl.TRIANGLES,sphere.count,gl.UNSIGNED_SHORT,0);gl.depthMask(true);gl.disable(gl.BLEND);}}
 for(const p of planets.filter(p=>(p.id==='saturn'||p.id==='uranus')&&p.opts.rings&&p.integrity>0)){gl.useProgram(pr.ring);common(pr.ring,cam);U3(pr.ring,'Center',p.pos);U1(pr.ring,'Radius',p.r);U1(pr.ring,'Tilt',p.opts.tilt*d2r);U1(pr.ring,'RingType',p.id==='uranus'?1:0);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false);gl.bindVertexArray(rings.vao);gl.drawElements(gl.TRIANGLES,rings.count,gl.UNSIGNED_SHORT,0);gl.depthMask(true);gl.disable(gl.BLEND);}
-let sun=planets[0];gl.disable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);gl.useProgram(pr.glow);common(pr.glow,cam);U3(pr.glow,'Center',sun.pos);U3(pr.glow,'Right',cam.right);U3(pr.glow,'Up',cam.up);U3(pr.glow,'Tint',[1,.52,.17]);U1(pr.glow,'Radius',sun.r*7.5);U1(pr.glow,'Power',sun.integrity>0?2.5:0);gl.bindVertexArray(glowVao);gl.drawArrays(gl.TRIANGLES,0,6);gl.disable(gl.BLEND);gl.enable(gl.DEPTH_TEST);updateLabels(cam);}
+let sun=planets[0];gl.disable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);gl.useProgram(pr.glow);common(pr.glow,cam);U3(pr.glow,'Center',sun.pos);U3(pr.glow,'Right',cam.right);U3(pr.glow,'Up',cam.up);U3(pr.glow,'Tint',[1,.52,.17]);U1(pr.glow,'Radius',sun.r*7.5);U1(pr.glow,'Power',sun.integrity>0?2.5:0);gl.bindVertexArray(glowVao);gl.drawArrays(gl.TRIANGLES,0,6);gl.disable(gl.BLEND);gl.enable(gl.DEPTH_TEST);if(typeof renderDebris==='function')renderDebris(cam);updateLabels(cam);}
 function worldScreen(w,cam){const r=V.sub(w,cam.pos),z=V.dot(r,cam.fw);if(z<.1)return null;let t=Math.tan(24*d2r),x=V.dot(r,cam.right)/(z*t*canvas.width/canvas.height),y=V.dot(r,cam.up)/(z*t);return {x:(1+x)*canvas.clientWidth/2,y:(1-y)*canvas.clientHeight/2,depth:z};}
 const labelEls={};function buildLabels(){for(const p of planets){const e=document.createElement('div');e.className='world-label';e.style.setProperty('--p',p.color);e.textContent=p.name;e.dataset.id=p.id;$('labels').appendChild(e);labelEls[p.id]=e;}}
 function updateLabels(cam){for(const p of planets){const e=labelEls[p.id];let screen=worldScreen(p.pos,cam),vis=screen&&screen.x>190&&screen.x<canvas.clientWidth-180&&screen.y>45&&screen.y<canvas.clientHeight-90; e.style.opacity=state.showLabels&&vis?(p.id==='moon'&&state.focus!=='earth'?.0:.89):0;if(screen){let offset= Math.max(12,Math.min(32,(p.r/screen.depth)*(canvas.clientHeight/(2*Math.tan(24*d2r)))+13));e.style.left=screen.x+'px';e.style.top=(screen.y-offset)+'px';}e.classList.toggle('active',p.id===state.selected);}}
@@ -363,7 +395,7 @@ function drawSmashFx(now){let dpr=Math.min(devicePixelRatio||1,1.8),w=Math.max(1
  if(smash.enabled){let [x,y]=smash.mouse;if(x>=0&&x<canvas.clientWidth){ctx.strokeStyle='#ffa788a6';ctx.lineWidth=1;ctx.beginPath();ctx.arc(x,y,13,0,2*Math.PI);ctx.moveTo(x-21,y);ctx.lineTo(x-9,y);ctx.moveTo(x+9,y);ctx.lineTo(x+21,y);ctx.moveTo(x,y-21);ctx.lineTo(x,y-9);ctx.moveTo(x,y+9);ctx.lineTo(x,y+21);ctx.stroke();}}
  ctx.restore();if(smash.flash>.012){ctx.fillStyle='rgba(255,194,146,'+Math.min(.22,smash.flash)+')';ctx.fillRect(0,0,canvas.clientWidth,canvas.clientHeight);}}
 
-function loop(now){let delta=Math.min(.075,Math.max(0,(now-state.lastFrame)/1000));state.lastFrame=now;let days=0;if(!state.paused){days=delta*state.speed;const maxMs=Date.UTC(2050,11,31)-state.date,minMs=Date.UTC(1800,0,1)-state.date;days=Math.min(days,maxMs/DAY);days=Math.max(days,minMs/DAY);state.date+=days*DAY;if(state.gravity&&days)advanceGravity(days);}updatePhysical();if(state.focus!=='overview'&&state.follow){let p=planets.find(p=>p.id===state.focus);if(p)state.camera.wanted=p.pos.slice();}else if(state.focus==='overview'){state.camera.wanted=[0,0,0];}state.camera.target=V.lerp(state.camera.target,state.camera.wanted,Math.min(.12,1-Math.exp(-delta*6)));if((state.frame++%14)===0){$('dateText').textContent=formatDate(state.date);if(document.activeElement!==$('datePicker'))$('datePicker').value=new Date(state.date).toISOString().slice(0,10);if(state.focus!=='overview')updateInspectorLimited();}tickSmash(now,delta);render();drawSmashFx(now);requestAnimationFrame(loop);}
+function loop(now){let delta=Math.min(.075,Math.max(0,(now-state.lastFrame)/1000));state.lastFrame=now;let days=0;if(!state.paused){days=delta*state.speed;const maxMs=Date.UTC(2050,11,31)-state.date,minMs=Date.UTC(1800,0,1)-state.date;days=Math.min(days,maxMs/DAY);days=Math.max(days,minMs/DAY);state.date+=days*DAY;if(state.gravity&&days)advanceGravity(days);}updatePhysical();if(typeof sandboxFrame==='function')sandboxFrame(now,delta,days);if(state.focus!=='overview'&&state.follow){let p=planets.find(p=>p.id===state.focus);if(p)state.camera.wanted=p.pos.slice();}else if(state.focus==='overview'){state.camera.wanted=[0,0,0];}state.camera.target=V.lerp(state.camera.target,state.camera.wanted,Math.min(.12,1-Math.exp(-delta*6)));if((state.frame++%14)===0){$('dateText').textContent=formatDate(state.date);if(document.activeElement!==$('datePicker'))$('datePicker').value=new Date(state.date).toISOString().slice(0,10);if(state.focus!=='overview')updateInspectorLimited();}tickSmash(now,delta);render();drawSmashFx(now);requestAnimationFrame(loop);}
 initUI();requestAnimationFrame(loop);
 </script>
 <script>
@@ -426,14 +458,14 @@ function touchTap(x,y){
  if(best)selectBody(best.id);
 }
 canvas.addEventListener('pointerdown',e=>{
- if(e.pointerType!=='touch')return;e.stopImmediatePropagation();e.preventDefault();
+ if(e.pointerType!=='touch'||(typeof sandbox!=='undefined'&&sandbox.move))return;e.stopImmediatePropagation();e.preventDefault();
  try{canvas.setPointerCapture(e.pointerId)}catch(_err){}
  touchNav.points.set(e.pointerId,[e.clientX,e.clientY]);
  if(touchNav.points.size===1){touchNav.start=[e.clientX,e.clientY];touchNav.last=[e.clientX,e.clientY];touchNav.moved=false;touchNav.multitouch=false;touchNav.pinch=0;}
  else{touchNav.multitouch=true;touchNav.moved=true;touchNav.pinch=0;}
 },{capture:true,passive:false});
 canvas.addEventListener('pointermove',e=>{
- if(e.pointerType!=='touch')return;e.stopImmediatePropagation();if(!touchNav.points.has(e.pointerId))return;e.preventDefault();
+ if(e.pointerType!=='touch'||(typeof sandbox!=='undefined'&&sandbox.move))return;e.stopImmediatePropagation();if(!touchNav.points.has(e.pointerId))return;e.preventDefault();
  touchNav.points.set(e.pointerId,[e.clientX,e.clientY]);
  if(touchNav.points.size>1){const [a,b]=[...touchNav.points.values()];const distance=Math.hypot(a[0]-b[0],a[1]-b[1]);if(touchNav.pinch&&distance>1){const bounds=touchZoomBounds();state.camera.dist=Math.max(bounds.min,Math.min(bounds.max,state.camera.dist*touchNav.pinch/distance));}touchNav.pinch=distance;touchNav.multitouch=true;touchNav.moved=true;return;}
  if(touchNav.multitouch){touchNav.last=[e.clientX,e.clientY];return}
@@ -442,7 +474,7 @@ canvas.addEventListener('pointermove',e=>{
  if(touchNav.moved){state.camera.az-=dx*.0045;state.camera.el=Math.max(-1.5,Math.min(1.5,state.camera.el+dy*.0045));}
  touchNav.last=[e.clientX,e.clientY];
 },{capture:true,passive:false});
-function endTouch(e,cancelled){if(e.pointerType!=='touch')return;e.stopImmediatePropagation();e.preventDefault();if(!touchNav.points.has(e.pointerId))return;
+function endTouch(e,cancelled){if(e.pointerType!=='touch'||(typeof sandbox!=='undefined'&&sandbox.move))return;e.stopImmediatePropagation();e.preventDefault();if(!touchNav.points.has(e.pointerId))return;
  const shouldTap=!cancelled&&!touchNav.moved&&!touchNav.multitouch&&touchNav.points.size===1;
  touchNav.points.delete(e.pointerId);touchNav.pinch=0;
  if(shouldTap)touchTap(e.clientX,e.clientY);
@@ -451,6 +483,240 @@ function endTouch(e,cancelled){if(e.pointerType!=='touch')return;e.stopImmediate
 canvas.addEventListener('pointerup',e=>endTouch(e,false),{capture:true,passive:false});
 canvas.addEventListener('pointercancel',e=>endTouch(e,true),{capture:true,passive:false});
 initMobileUI();
+
+</script>
+<script>
+/* Three-dimensional tetrahedral fragments for shattered celestial bodies. */
+const debrisVS=`#version 300 es
+precision highp float;
+in vec3 aPos,aShade;
+uniform mat4 uView,uProj;
+out vec3 vShade;
+void main(){vShade=aShade;gl_Position=uProj*uView*vec4(aPos,1.);}`;
+const debrisFS=`#version 300 es
+precision highp float;
+in vec3 vShade;out vec4 color;
+void main(){color=vec4(vShade,1.);}`;
+const debrisProgram=program(debrisVS,debrisFS),debrisBuffer=gl.createBuffer(),debrisVAO=gl.createVertexArray();
+gl.bindVertexArray(debrisVAO);gl.bindBuffer(gl.ARRAY_BUFFER,debrisBuffer);
+for(const [name,size,offset] of [['Pos',3,0],['Shade',3,12]]){const loc=gl.getAttribLocation(debrisProgram,'a'+name);if(loc>=0){gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,size,gl.FLOAT,false,24,offset);}}
+gl.bindVertexArray(null);
+function renderDebris(cam){const now=performance.now(),verts=[];
+ for(const p of planets){if(p.integrity>0||!p.fragments?.length)continue;
+ const t=Math.max(0,Math.min(6,(now-p.destroyedAt)/1600));
+ for(const f of p.fragments.slice(0,115)){
+ const n=V.norm(f.d),base=V.add(p.pos,V.mul(n,p.r*(.6+t*f.s*.85)));
+ const ref=Math.abs(n[1])>.85?[1,0,0]:[0,1,0],u=V.norm(V.cross(n,ref)),v=V.norm(V.cross(n,u));
+ const r=p.r*(.02+f.r*.013)*(1+Math.min(.5,t*.08));
+ const a=V.add(base,V.mul(n,r*1.8)),b=V.add(base,V.mul(u,r)),c=V.add(base,V.mul(v,r)),d=V.sub(base,V.mul(V.add(u,v),r*.8));
+ const pts=[a,b,c,a,c,d,a,d,b,b,d,c];
+ const tint=f.k>.55?[.75,.4,.2]:f.k>.2?[.45,.46,.52]:[.24,.26,.30];
+ for(let i=0;i<12;i++){let shade=.65+(i%3)*.16;verts.push(...pts[i],...tint.map(z=>z*shade));}
+ }
+ }
+ if(!verts.length)return;
+ gl.useProgram(debrisProgram);common(debrisProgram,cam);gl.enable(gl.DEPTH_TEST);gl.disable(gl.BLEND);
+ gl.bindVertexArray(debrisVAO);gl.bindBuffer(gl.ARRAY_BUFFER,debrisBuffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(verts),gl.DYNAMIC_DRAW);gl.drawArrays(gl.TRIANGLES,0,verts.length/6);gl.bindVertexArray(null);
+}
+
+/* Solaris Dynamics — environmental response, orbit editing, free-flight, collisions and 3D debris.
+   This is an interactive sandbox, not a calibrated climate / population / N-body forecast. */
+'use strict';
+const sandbox={free:false,move:false,drag:null,keys:new Set(),held:new Set(),events:[],population:8321000000,populationStart:8321000000,popFlux:0,collisionCount:0,autoTick:0,justDestroyed:new Set(),sunMass:1,flightSpeed:20,lastEnvUpdate:0};
+const climateDefaults={sun:[5500,0,0,1,0],mercury:[167,0,0,7,0],venus:[464,92,0,2,0],earth:[15,1,71,1,0],mars:[-63,.006,0,3,0],jupiter:[-110,100,0,4,0],saturn:[-140,100,0,3,0],uranus:[-195,100,0,2,0],neptune:[-200,100,0,3,0],moon:[-20,0,0,5,0]};
+for(const p of planets){const d=climateDefaults[p.id];p.env={temp:d[0],atm:d[1],water:d[2],radiation:d[3],gravity:1,baseline:d[0],manualTemp:d[0],eventDamage:0};p.surfaceGravity=(p.mass/planets.find(e=>e.id==='earth').mass)*Math.pow(6371/p.radius,2);p.collisionCount=0;p.lastDisaster='None';}
+const $sb=id=>document.getElementById(id);
+function logSandbox(text){sandbox.events.unshift({time:formatDate(state.date),text});sandbox.events.length=Math.min(7,sandbox.events.length);const e=$sb('sandboxEvents');if(e)e.innerHTML=sandbox.events.map(v=>`<div><span>${v.time}</span> ${escapeText(v.text)}</div>`).join('');}
+function escapeText(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function healthOf(p){if(p.integrity<=0)return 0;let e=p.env;const t=Math.exp(-Math.pow((e.temp-e.baseline)/Math.max(45,Math.abs(e.baseline)*.55),2));let a=e.atm,ref=climateDefaults[p.id][1];let pressure=ref===0?Math.exp(-a/6):Math.exp(-Math.abs(Math.log((a+.1)/(ref+.1)))*.65);let rad=Math.exp(-Math.max(0,e.radiation-4)*.15);return Math.min(100,Math.max(0,100*t*pressure*rad*(p.integrity/100)));}
+function habitability(){const p=planets.find(p=>p.id==='earth'),e=p.env;if(p.integrity<=0||planets[0].integrity<=0)return 0;const t=Math.exp(-Math.pow((e.temp-16)/31,2));const atm=Math.exp(-Math.pow(Math.log(Math.max(.02,e.atm))/1.3,2));const water=Math.pow(Math.min(1,e.water/65),.5)*Math.exp(-Math.pow(Math.max(0,e.water-92)/18,2));const gravity=Math.exp(-Math.pow(Math.log(Math.max(.01,e.gravity))/.92,2));const radiation=Math.exp(-Math.max(0,e.radiation-1)*.28);return Math.max(0,Math.min(1,t*atm*water*gravity*radiation*Math.pow(p.integrity/100,2)));}
+function worldToAU(v){let r=V.len(v);if(!r)return [0,0,0];let a=state.physicalScale?r/PHYS_FACTOR:Math.pow(Math.max(0,(r-4.7)/12.3),1/.57);return V.mul(v,a/r);}
+function activateDynamics(){if(!state.gravity){initGravity();state.gravity=true;showToast('Orbital dynamics enabled · collisions active');}if(!state.sim)initGravity();}
+function setWorldPosition(p,coords,retainVelocity=true){if(!p.orb){showToast('The Sun is the fixed reference point');return;}activateDynamics();const b=state.sim.bodies[p.id];if(!b)return;b.x=coords.slice();if(!retainVelocity)b.v=[0,0,0];p.physical=coords.slice();p.pos=posWorld(coords);updatePhysical();}
+function shiftWorld(p,x,y,z){setWorldPosition(p,[x,y,z]);rebuildPaths();logSandbox(`${p.name} moved to (${x.toFixed(2)}, ${y.toFixed(2)}, ${z.toFixed(2)}) AU`);}
+function gravityValue(p){return p.surfaceGravity*p.env.gravity;}
+function destroyWorld(p,reason='Catastrophic disruption'){
+ if(p.integrity<=0)return;
+ const sc=worldScreen(p.pos,cameraData());p.integrity=0;p.hits=[];p.lastDisaster=reason;
+ shatterWorld(p,sc?.x??canvas.clientWidth*.5,sc?.y??canvas.clientHeight*.5);sandbox.justDestroyed.add(p.id);
+ if(p.id==='sun'){sandbox.sunMass=0;sandbox.population=0;for(const other of planets){if(other!==p&&other.integrity>0)other.env.temp=-240;}activateDynamics();logSandbox('Solar destruction: planetary bodies lose their central gravitational anchor, freeze, and Earth becomes uninhabitable');}
+ else if(p.id==='earth'){sandbox.population=0;logSandbox('Earth destroyed: modeled human population has collapsed to zero');}
+ else if(p.id==='moon'){sandbox.population*=.95;logSandbox('Moon disrupted: Earth loses its lunar companion; tidal stability declines in this simplified model');}
+ else if(p.id==='jupiter'){logSandbox('Jupiter destroyed: gravitational perturbations from Jupiter cease in dynamics mode');}
+ else if(p.id==='saturn'){logSandbox('Saturn disrupted: ring system disappears with the planet');}
+ else logSandbox(`${p.name} destroyed: its gravitational contribution is removed from orbital dynamics`);
+ if(p.orb){activateDynamics();}updateSmashDock();renderSandboxReadout();updateSidebar();
+}
+function repairPlanet(p){restoreSmashWorld(p,true);p.env={temp:climateDefaults[p.id][0],atm:climateDefaults[p.id][1],water:climateDefaults[p.id][2],radiation:climateDefaults[p.id][3],gravity:1,baseline:climateDefaults[p.id][0],eventDamage:0};p.opts.mass=1;p.lastDisaster='None';if(p.id==='sun'){sandbox.sunMass=1;for(const other of planets){if(other!==p&&other.integrity>0)other.env.temp=other.env.manualTemp;}}if(p.id==='earth')sandbox.population=sandbox.populationStart; if(state.gravity)initGravity();updatePhysical();updateSidebar();updateInspector();logSandbox(`${p.name} reconstructed`);showToast(p.name+' rebuilt');}
+function collision(a,b){if(a.integrity<=0||b.integrity<=0)return;
+ const mass=p=>(p.id==='sun'?1:p.mass*p.opts.mass)*(p.integrity>0?1:0);
+ const big=mass(a)>=mass(b)?a:b,small=big===a?b:a,mi=mass(small),ma=mass(big);
+ const vb=state.sim?.bodies[big.id],vs=state.sim?.bodies[small.id];
+ if(vb&&vs&&mi+ma>0){vb.v=V.mul(V.add(V.mul(vb.v,ma),V.mul(vs.v,mi)),1/(mi+ma));vb.x=V.mul(V.add(V.mul(vb.x,ma),V.mul(vs.x,mi)),1/(mi+ma));}
+ if(big.id==='sun'){sandbox.sunMass=Math.min(2,sandbox.sunMass+mi);}
+ else {big.opts.mass=Math.min(100,(ma+mi)/big.mass);}
+ const severity=Math.min(95,7+65*Math.sqrt(mi/Math.max(ma,1e-8)));
+ big.integrity=Math.max(1,big.integrity-severity);big.hits.push({n:[0,1,0],radius:.9,power:4,type:3});if(big.hits.length>20)big.hits.shift();
+ if(big.id==='earth'){sandbox.population*=Math.max(.02,1-severity/110);big.env.temp+=Math.min(400,20+severity*3);}
+ small.integrity=0;destroyWorldWithAlreadyZero(small,`Collision with ${big.name}`);
+ sandbox.collisionCount++;logSandbox(`${a.name} + ${b.name} collided · ${big.name} absorbed mass and suffered ${Math.round(severity)}% damage`);
+ const sc=worldScreen(big.pos,cameraData());burst(sc?.x??canvas.clientWidth*.5,sc?.y??canvas.clientHeight*.5,'#ffb270',3.7);
+ updateSidebar();renderSandboxReadout();
+}
+function destroyWorldWithAlreadyZero(p,reason){p.integrity=1;destroyWorld(p,reason)}
+function checkCollisions(){if(!state.gravity||!state.sim)return;const active=planets.filter(p=>p.integrity>0&&p.id!=='moon');
+ for(let i=0;i<active.length;i++)for(let j=i+1;j<active.length;j++){
+  const a=active[i],b=active[j],sep=V.len(V.sub(a.physical,b.physical));
+  const contact=(a.radius+b.radius)/AU_KM*Math.max(1,a.opts.size,b.opts.size);
+  const pa=sandbox.prevPositions?.[a.id],pb=sandbox.prevPositions?.[b.id];
+  let swept=sep;if(pa&&pb){const start=V.sub(pa,pb),finish=V.sub(a.physical,b.physical),motion=V.sub(finish,start),den=V.dot(motion,motion);
+   if(den>1e-15){const t=Math.max(0,Math.min(1,-V.dot(start,motion)/den));swept=Math.min(swept,V.len(V.add(start,V.mul(motion,t))));}}
+  if(swept<=contact){collision(a,b);sandbox.prevPositions=null;return;}
+ }
+ sandbox.prevPositions=Object.fromEntries(active.map(p=>[p.id,p.physical.slice()]));
+}
+function collideWith(p,q){if(!p.orb||p===q||p.integrity<=0||q.integrity<=0){showToast('Choose an intact moving planet and another intact target');return;}
+ activateDynamics();const dir=V.norm(V.sub(p.physical,q.physical));const n=V.len(dir)>.2?dir:[1,0,0];const contact=(p.radius+q.radius)/AU_KM;
+ setWorldPosition(p,V.add(q.physical,V.mul(n,contact*.72)),false);
+ updatePhysical();checkCollisions();if(state.selected===p.id)updateInspector();}
+function tempChange(p,v){if(p.integrity<=0)return;const prev=p.env.temp;p.env.temp=v;p.env.manualTemp=v;
+ if(Math.abs(v-prev)>30){const typ=v>prev?1:2;const norm=V.norm([Math.random()-.5,Math.random()-.5,Math.random()-.5]);p.hits.push({n:norm,radius:.25+Math.min(.8,Math.abs(v-prev)/800),power:Math.min(4,Math.abs(v-prev)/140),type:typ});if(p.hits.length>20)p.hits.shift();}
+ if(p.id==='earth'&&(v>120||v< -75)){p.lastDisaster='Extreme planetary climate';}
+}
+function orbitalClimate(){
+ if(planets[0].integrity<=0)return;
+ for(const p of planets){if(!p.orb||p.integrity<=0)continue;
+  const dist=Math.max(.05,V.len(p.physical)),reference=p.orb[0][0],refTemp=p.env.manualTemp??p.env.baseline;
+  // Approximate inverse-square stellar irradiation and fourth-root equilibrium heating: T ∝ r^-1/2.
+  const orbitalDelta=(p.env.baseline+273.15)*(Math.sqrt(reference/dist)-1);
+  p.env.temp=Math.max(-250,Math.min(2500,refTemp+orbitalDelta));
+ }
+}
+function timeStepEnvironment(days){if(!Number.isFinite(days)||days<=0)return;
+ const earth=planets.find(p=>p.id==='earth');let hab=habitability();
+ // Model population in accelerated simulation time. It is NOT a real-time census or population forecast.
+ const yr=Math.min(days/365.25,12);if(earth.integrity<=0||planets[0].integrity<=0)sandbox.population=0;
+ else if(sandbox.population>0){
+  const growth=hab*.009 - (1-hab)*.30;
+  sandbox.population=Math.min(1.7e10,Math.max(0,sandbox.population*Math.exp(Math.max(-45,Math.min(.15,growth*yr)))));
+  if(sandbox.population<1)sandbox.population=0;
+ }
+ for(const p of planets){if(p.integrity<=0||p.id==='sun')continue;let e=p.env,stress=Math.max(0,Math.abs(e.temp-e.baseline)-130)/1600+Math.max(0,e.radiation-12)/30+Math.max(0,e.atm-100)/900;
+  if(e.temp>1800||e.gravity>15||e.atm>240)stress+=.4;
+  if(stress>0){p.integrity=Math.max(0,p.integrity-stress*days*.02);if(p.integrity===0){p.integrity=1;destroyWorld(p,'Environmental structural collapse');}}
+ }
+}
+function renderEnvironmentStats(){const p=planets.find(q=>q.id===state.selected);if(!p)return;
+ const container=$sb('planetPulse');if(!container)return;
+ const c=p.env,earth=p.id==='earth';
+ container.innerHTML=`<div class="pulse-top"><span>${earth?'HUMAN POPULATION · SIMULATED':'PLANETARY CONDITIONS · SIMULATED'}</span><b>${p.integrity>0?Math.round(p.integrity)+'% integrity':'DESTROYED'}</b></div><div class="pulse-number">${earth?Math.floor(sandbox.population).toLocaleString('en-GB'):Math.round(c.temp).toLocaleString('en-GB')+' °C'}</div><div class="pulse-sub">${earth?'Model changes as simulated time runs · not live census data':'Environment stability '+Math.round(healthOf(p))+'% · gravity '+gravityValue(p).toFixed(2)+' g'}</div><div class="pulse-track"><span style="width:${earth?habitability()*100:healthOf(p)}%"></span></div>${earth?'<div class="pulse-foot">Habitability '+Math.round(habitability()*100)+'% · '+(habitability()>.65?'sustainable':habitability()>.2?'population declining':'mass extinction risk')+'</div>':''}`;
+}
+function renderSandboxReadout(){renderEnvironmentStats();const c=$sb('physicsBadge');if(c)c.textContent=`${state.gravity?'● DYNAMICS + COLLISIONS':'◌ KEPLER ORBITS'} · ${sandbox.collisionCount} COLLISIONS`;
+ if($sb('freeCamBtn')){$sb('freeCamBtn').classList.toggle('active',sandbox.free);$sb('freeCamBtn').textContent=sandbox.free?'✦ Free Cam ON':'✦ Free Cam'}
+ if($sb('movePlanetBtn'))$sb('movePlanetBtn').classList.toggle('active',sandbox.move);
+}
+function sandboxFrame(now,delta,days){
+ if(sandbox.free){let c=cameraData(),f=V.norm([c.fw[0],c.fw[1],c.fw[2]]),right=c.right,up=[0,1,0],direction=[0,0,0],has=k=>sandbox.keys.has(k)||sandbox.held.has(k);
+  if(has('w')||has('arrowup'))direction=V.add(direction,f);
+  if(has('s')||has('arrowdown'))direction=V.sub(direction,f);
+  if(has('d')||has('arrowright'))direction=V.add(direction,right);
+  if(has('a')||has('arrowleft'))direction=V.sub(direction,right);
+  if(has('e'))direction=V.add(direction,up);if(has('q'))direction=V.sub(direction,up);
+  const multiplier=has('shift')?5:1;
+  if(V.len(direction)>.01){let vel=delta*sandbox.flightSpeed*multiplier*Math.max(.08,Math.min(5,state.camera.dist/25));state.camera.wanted=V.add(state.camera.wanted,V.mul(V.norm(direction),vel));}
+ }
+ orbitalClimate();timeStepEnvironment(days);
+ for(const p of planets){if(p.integrity<=0&&!sandbox.justDestroyed.has(p.id)){
+   p.integrity=1;destroyWorld(p,'Impact-driven planetary disruption');
+ }}
+ if(state.gravity){checkCollisions();}
+ if(state.frame%13===0){renderSandboxReadout();if($sb('positionEditor')&&document.activeElement?.closest('#positionEditor')==null){const p=planets.find(p=>p.id===state.selected);const coords=p.physical;for(let i=0;i<3;i++){const el=$sb(['positionX','positionY','positionZ'][i]);if(el)el.value=coords[i].toFixed(3);}}}
+}
+function flyCamera(on){sandbox.free=on; sandbox.move=false;state.follow=!on;
+ if(on){const cam=cameraData();const dist=18;state.camera.dist=dist;state.camera.wanted=V.add(cam.pos,V.mul(cam.fw,dist));state.camera.target=state.camera.wanted.slice();state.focus='free';$sb('viewTitle').textContent='Free-flight camera';showToast('WASD fly · Q/E vertical · Shift boost · drag to look');}
+ else{overview();showToast('Orbit camera restored');}
+ renderSandboxReadout();}
+function toggleMove(){const p=planets.find(q=>q.id===state.selected);if(!p.orb){showToast('Select a planet to move');return;}sandbox.move=!sandbox.move;if(sandbox.move){flyCamera(false);sandbox.move=true;activateDynamics();showToast('MOVE MODE: drag across space to move '+p.name+' · select Collide to merge worlds');}renderSandboxReadout();}
+function pointerRay(x,y){let cam=cameraData(),nx=x/canvas.clientWidth*2-1,ny=1-y/canvas.clientHeight*2,tan=Math.tan(24*d2r);return {cam,d:V.norm(V.add(cam.fw,V.add(V.mul(cam.right,nx*tan*canvas.clientWidth/canvas.clientHeight),V.mul(cam.up,ny*tan))))};}
+function dragPlanetAt(x,y){let p=sandbox.drag?.p;if(!p||p.integrity<=0)return;let {cam,d}=pointerRay(x,y);let denom=V.dot(d,cam.fw);if(denom<.001)return;let t=V.dot(V.sub(sandbox.drag.anchor,cam.pos),cam.fw)/denom;if(t<0)return;let world=V.add(V.add(cam.pos,V.mul(d,t)),sandbox.drag.offset);let physical=worldToAU(world);if(!physical.every(Number.isFinite))return;setWorldPosition(p,physical);renderSandboxReadout();}
+function sandboxPointer(e,phase){if(!sandbox.move)return;if(phase==='down'){
+ const cam=cameraData(),hit=smashPick(e.clientX,e.clientY,cam),p=planets.find(q=>q.id===state.selected);if(!p?.orb||p.integrity<=0)return;
+ // Selecting a target via planet list avoids ambiguity when worlds overlap.
+ let origin=hit?.p===p?p.pos.slice():p.pos.slice();let ray=pointerRay(e.clientX,e.clientY),denom=V.dot(ray.d,ray.cam.fw),t=V.dot(V.sub(origin,ray.cam.pos),ray.cam.fw)/denom;let cursor=t>0?V.add(ray.cam.pos,V.mul(ray.d,t)):origin;
+ sandbox.drag={id:e.pointerId,p,anchor:origin,offset:V.sub(origin,cursor),wasPaused:state.paused};state.paused=true;
+ try{canvas.setPointerCapture(e.pointerId)}catch(_e){} e.preventDefault();e.stopImmediatePropagation();}
+ else if(sandbox.drag&&sandbox.drag.id===e.pointerId){if(phase==='move')dragPlanetAt(e.clientX,e.clientY);
+ else{dragPlanetAt(e.clientX,e.clientY);state.paused=sandbox.drag.wasPaused;sandbox.drag=null;checkCollisions();logSandbox('Orbital placement updated · '+planets.find(q=>q.id===state.selected).name);}
+ e.preventDefault();e.stopImmediatePropagation();}}
+for(const phase of ['pointerdown','pointermove','pointerup','pointercancel'])canvas.addEventListener(phase,e=>sandboxPointer(e,phase.replace('pointer','').replace('cancel','up')),{capture:true,passive:false});
+function sandboxEnvironmentUI(p){const e=p.env,earth=p.id==='earth';const set=(id,label,min,max,step,v,unit)=>`<div class="setting"><div class="setting-title"><label for="${id}">${label}</label><span class="setting-value" id="v_${id}">${Number(v).toFixed(step<1?2:0)}${unit}</span></div><input type="range" class="range" id="${id}" min="${min}" max="${max}" step="${step}" value="${v}"/></div>`;
+ let h=`<div class="field-caption">Live-response sandbox controls. Temperature, atmospheric pressure, radiation and gravity influence planetary stability; Earth population responds as simulation time runs.</div>`;
+ h+=`<div class="fieldset"><div class="field-title">${p.id==='sun'?'STELLAR ACTIVITY':'WORLD ENVIRONMENT'}</div>`;
+ h+=set('envTemp',p.id==='sun'?'Photosphere temperature':'Average temperature',p.id==='sun'?2000:-245,p.id==='sun'?12500:2200,1,e.temp,'°C');
+ if(p.id!=='sun'){h+=set('envAtm','Atmosphere / pressure',0,260,.05,e.atm,' bar');h+=set('envWater','Surface water coverage',0,100,1,e.water,'%');h+=set('envRadiation','Radiation multiplier',0,30,.1,e.radiation,'×');h+=set('envGravity','Mass / gravity multiplier',.01,20,.01,e.gravity,'×');}
+ h+='</div>';
+ h+=`<div class="sandbox-readout"><b>${earth?'Earth habitability':'Environment stability'}</b><strong id="envScore">${Math.round((earth?habitability()*100:healthOf(p)))}%</strong><div class="tip">${earth?'Earth’s population is a responsive simulation, not a live world census or scientific forecast.':'Extreme settings can scar a planet and gradually reduce its integrity as time advances.'}</div></div>`;
+ h+=`<div class="control-row"><button class="action" id="resetClimate">Reset environment</button><button class="action secondary" id="envPause">${state.paused?'Resume':'Pause'} time</button></div>`;
+ $sb('settings').innerHTML=h;
+ for(const [id,k,unit] of [['envTemp','temp','°C'],['envAtm','atm',' bar'],['envWater','water','%'],['envRadiation','radiation','×'],['envGravity','gravity','×']]){let el=$sb(id);if(!el)continue;el.addEventListener('input',()=>{const v=+el.value;if(k==='temp')tempChange(p,v);else p.env[k]=v;
+ if(k==='gravity'){p.opts.mass=v; if(p.id==='sun')sandbox.sunMass=v;activateDynamics();}
+ $sb('v_'+id).textContent=v.toFixed(+el.step<1?2:0)+unit;
+ $sb('envScore').textContent=Math.round(p.id==='earth'?habitability()*100:healthOf(p))+'%';renderSandboxReadout();});}
+ $sb('resetClimate').onclick=()=>{const d=climateDefaults[p.id];p.env={temp:d[0],atm:d[1],water:d[2],radiation:d[3],gravity:1,baseline:d[0],manualTemp:d[0],eventDamage:0};p.opts.mass=1;if(p.id==='sun')sandbox.sunMass=1;renderSettings();renderSandboxReadout();};
+ $sb('envPause').onclick=()=>{togglePlay();$sb('envPause').textContent=state.paused?'Resume':'Pause';};
+}
+function sandboxActionsUI(p){let h=`<div class="field-caption">Alter ${p.name}'s orbit, move it through space, trigger physical collisions, or destroy it. Changes persist until you rebuild.</div>`;
+ h+=`<div class="fieldset"><div class="field-title">ORBIT & POSITION</div>`;
+ h+=`<div class="sandbox-coordinates" id="positionEditor"><label>X (AU)<input type="number" id="positionX" step=".01" value="${p.physical[0].toFixed(3)}" ${!p.orb?'disabled':''}></label><label>Y (AU)<input type="number" id="positionY" step=".01" value="${p.physical[1].toFixed(3)}" ${!p.orb?'disabled':''}></label><label>Z (AU)<input type="number" id="positionZ" step=".01" value="${p.physical[2].toFixed(3)}" ${!p.orb?'disabled':''}></label></div>`;
+ h+=`<div class="control-row"><button class="action" id="applyPosition" ${!p.orb?'disabled':''}>Set position</button><button class="action secondary" id="movePlanetBtn" ${!p.orb?'disabled':''}>✥ Drag to move</button></div>`;
+ h+=`<div class="setting"><div class="setting-title"><label for="orbitVelocity">Orbital velocity</label><span class="setting-value" id="v_orbitVelocity">${p.opts.speed||1}×</span></div><input type="range" class="range" id="orbitVelocity" min="0" max="3" step=".05" value="${p.opts.speed||1}" ${!p.orb?'disabled':''}></div>`;
+ h+=`<div class="field-title">COLLIDE WITH ANOTHER WORLD</div><div class="control-row"><select id="collisionTarget" class="sb-select">${planets.filter(q=>q!==p&&q.integrity>0).map(q=>`<option value="${q.id}">${q.name}</option>`).join('')}</select><button class="action danger" id="collisionBtn" ${!p.orb||p.integrity<=0?'disabled':''}>Collide</button></div><div class="tip">Colliding worlds merge mass and momentum. The smaller world shatters; the survivor suffers damage. Changes persist in N-body dynamics mode.</div></div>`;
+ h+=`<div class="fieldset"><div class="field-title">SURFACE & DESTRUCTION</div><div class="action-grid"><button class="action" data-sandboxweapon="asteroid">☄ Asteroid</button><button class="action" data-sandboxweapon="laser">⚡ Laser</button><button class="action" data-sandboxweapon="nuke">💥 Nuclear blast</button><button class="action" data-sandboxweapon="freeze">❄ Freeze</button><button class="action" data-sandboxweapon="worldbreaker">🌋 Worldbreaker</button><button class="action danger" id="destroyPlanet">✹ SHATTER ${p.name.toUpperCase()}</button></div><div class="control-row"><button class="action secondary" id="restoreSelected">↺ Rebuild ${p.name}</button></div><div class="tip">Surface impacts create 3D craters, damage and erupting debris. Destruction removes the world's gravity contribution and can disrupt Earth's population.</div></div>`;
+ h+=`<div class="fieldset"><div class="field-title">EVENT HISTORY</div><div id="sandboxEvents" class="sandbox-events">${sandbox.events.map(v=>`<div><span>${v.time}</span> ${escapeText(v.text)}</div>`).join('')}</div></div>`;
+ $sb('settings').innerHTML=h;
+ if(p.orb){$sb('applyPosition').onclick=()=>{let xyz=['positionX','positionY','positionZ'].map(id=>+$sb(id).value);if(xyz.every(Number.isFinite)){shiftWorld(p,...xyz);renderSandboxReadout();}else showToast('Enter valid coordinates');};
+ $sb('movePlanetBtn').onclick=toggleMove;
+ $sb('orbitVelocity').oninput=e=>{let v=+e.target.value;p.opts.speed=v;activateDynamics();state.sim.bodies[p.id].v=V.mul(V.norm(state.sim.bodies[p.id].v),V.len(state.sim.bodies[p.id].v)*v/Math.max(.001,p._priorVelocityScale??1));p._priorVelocityScale=v;$sb('v_orbitVelocity').textContent=v.toFixed(2)+'×';};
+ $sb('collisionBtn').onclick=()=>{const q=planets.find(q=>q.id===$sb('collisionTarget').value);if(q)collideWith(p,q);renderSettings();};}
+ $sb('settings').querySelectorAll('[data-sandboxweapon]').forEach(btn=>btn.onclick=()=>{if(p.integrity<=0){showToast('Rebuild the world first');return;}smash.weapon=btn.dataset.sandboxweapon;let normal=V.norm(V.sub(cameraData().pos,p.pos));let sc=worldScreen(p.pos,cameraData());fireSmash(p,normal,p.pos,sc?.x??innerWidth/2,sc?.y??innerHeight/2);logSandbox(`${p.name}: ${smash.weapon} launched`);});
+ $sb('destroyPlanet').onclick=()=>{destroyWorld(p,'Deliberate planetary shattering');renderSettings();};
+ $sb('restoreSelected').onclick=()=>repairPlanet(p);
+ renderSandboxReadout();
+}
+const originalRenderSettings=renderSettings;
+renderSettings=function(){if(state.tab==='environment'||state.tab==='actions'){
+ const p=planets.find(p=>p.id===state.selected);for(const el of document.querySelectorAll('.tab'))el.classList.toggle('active',el.dataset.tab===state.tab);
+ if(state.tab==='environment')sandboxEnvironmentUI(p);else sandboxActionsUI(p);renderSandboxReadout();return;}
+ originalRenderSettings();};
+const originalInspector=updateInspector;
+updateInspector=function(){originalInspector();renderSandboxReadout();};
+const originalLimited=updateInspectorLimited;
+updateInspectorLimited=function(){originalLimited();renderSandboxReadout();};
+const originalSelect=selectBody;
+selectBody=function(id,focus=true){if(sandbox.free){sandbox.free=false;state.follow=true;}sandbox.move=false;originalSelect(id,focus);renderSandboxReadout();};
+const originalOverview=overview;
+overview=function(){sandbox.free=false;sandbox.move=false;state.follow=true;originalOverview();renderSandboxReadout();};
+function initDynamicsUI(){
+ // Legacy weapons lab remains available internally to generate impact effects but never appears as a panel.
+ setSmashMode(false);
+ $sb('smashBtn').style.display='none';$sb('smashDock').style.display='none';$sb('weaponPeek').style.display='none';
+ document.querySelector('.brand-sub').textContent='3D PLANETARY PHYSICS SANDBOX';
+ const tabs=$sb('tabs');tabs.insertAdjacentHTML('beforeend','<button class="tab" data-tab="environment">Environment</button><button class="tab" data-tab="actions">Actions</button>');
+ $sb('statGrid').insertAdjacentHTML('beforebegin','<div id="planetPulse" class="planet-pulse" aria-live="off"></div>');
+ const controls=document.querySelector('.top-controls');const free=document.createElement('button');free.className='pill freecam-pill';free.id='freeCamBtn';free.type='button';free.textContent='✦ Free Cam';controls.insertBefore(free,$sb('homeBtn'));free.onclick=()=>flyCamera(!sandbox.free);
+ const read=document.createElement('div');read.className='physics-badge';read.id='physicsBadge';read.textContent='◌ KEPLER ORBITS';document.querySelector('.hud-center').appendChild(read);
+ const pad=document.createElement('div');pad.id='freeCamPad';pad.className='flight-pad';pad.innerHTML='<div class="flight-label">FREE CAM · MOVE</div><div class="flight-controls"><button data-fly="q">↓</button><button data-fly="w">↑</button><button data-fly="e">↑ Z</button><button data-fly="a">←</button><button data-fly="s">↓</button><button data-fly="d">→</button></div>';document.body.appendChild(pad);
+ for(const b of pad.querySelectorAll('button')){const key=b.dataset.fly;b.addEventListener('pointerdown',e=>{sandbox.held.add(key);b.setPointerCapture(e.pointerId);e.preventDefault();});for(const phase of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(phase,()=>sandbox.held.delete(key));}
+ document.addEventListener('keydown',e=>{if(e.target.closest('input,select,textarea')||e.ctrlKey||e.metaKey||e.altKey)return;const key=e.key.toLowerCase();if(['w','a','s','d','q','e','arrowup','arrowdown','arrowleft','arrowright','shift'].includes(key)){sandbox.keys.add(key);if(sandbox.free)e.preventDefault();}if(key==='f'&&!e.repeat){flyCamera(!sandbox.free);e.preventDefault();}});
+ document.addEventListener('keyup',e=>sandbox.keys.delete(e.key.toLowerCase()));window.addEventListener('blur',()=>{sandbox.keys.clear();sandbox.held.clear();});
+ const oldDoc=document.querySelector('.citation');oldDoc.innerHTML='<strong>PHYSICS & DATA</strong><br/>JPL approximate orbital elements, experimental point-mass N-body motion and simplified collision merging. Environmental responses, planetary damage and Earth population are artistic sandbox models, not climate science, live census data or verified future predictions. <a target="_blank" rel="noopener noreferrer" href="https://ssd.jpl.nasa.gov/planets/approx_pos.html">Orbital reference ↗</a>';
+ document.querySelector('.hint').innerHTML='<b>Drag</b> to orbit · <b>F</b> free camera · <b>Tap</b> planet to customize · <b>Actions</b> to collide';
+ const manual=$sb('help');manual.querySelector('ul').insertAdjacentHTML('afterbegin','<li><b>Solaris Dynamics:</b> select a planet and open Environment to control temperature, atmosphere, radiation, water and gravity; open Actions for position, orbit velocity, collisions and destruction. Earth has a <b>simulated</b> population that reacts over simulated time (not a real-time census).</li><li><b>Free Cam:</b> press F or ✦ Free Cam. Fly with W/A/S/D, move vertically Q/E, hold Shift to boost; drag to look. Use the on-screen flight buttons on touchscreens.</li>');
+ for(const el of manual.querySelectorAll('li'))if(el.textContent.includes('SMASH MODE'))el.remove();
+ document.querySelector('.sidebar-bottom .tip').innerHTML='10 celestial bodies · responsive environmental simulation<br/>Newtonian collision dynamics when physics is enabled';
+ renderSandboxReadout();logSandbox('Solaris Dynamics initialized');
+}
+initDynamicsUI();
 
 </script>
 </body></html>
