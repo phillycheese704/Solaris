@@ -1,3 +1,4 @@
+
 /* Solaris touch and responsive panels. Runs after the core renderer. */
 function initMobileUI(){
  const sidebar=$('sidebar'),inspector=document.querySelector('.inspector'),backdrop=$('panelBackdrop');
@@ -57,14 +58,14 @@ function touchTap(x,y){
  if(best)selectBody(best.id);
 }
 canvas.addEventListener('pointerdown',e=>{
- if(e.pointerType!=='touch')return;e.stopImmediatePropagation();e.preventDefault();
+ if(e.pointerType!=='touch'||(typeof sandbox!=='undefined'&&sandbox.move))return;e.stopImmediatePropagation();e.preventDefault();
  try{canvas.setPointerCapture(e.pointerId)}catch(_err){}
  touchNav.points.set(e.pointerId,[e.clientX,e.clientY]);
  if(touchNav.points.size===1){touchNav.start=[e.clientX,e.clientY];touchNav.last=[e.clientX,e.clientY];touchNav.moved=false;touchNav.multitouch=false;touchNav.pinch=0;}
  else{touchNav.multitouch=true;touchNav.moved=true;touchNav.pinch=0;}
 },{capture:true,passive:false});
 canvas.addEventListener('pointermove',e=>{
- if(e.pointerType!=='touch')return;e.stopImmediatePropagation();if(!touchNav.points.has(e.pointerId))return;e.preventDefault();
+ if(e.pointerType!=='touch'||(typeof sandbox!=='undefined'&&sandbox.move))return;e.stopImmediatePropagation();if(!touchNav.points.has(e.pointerId))return;e.preventDefault();
  touchNav.points.set(e.pointerId,[e.clientX,e.clientY]);
  if(touchNav.points.size>1){const [a,b]=[...touchNav.points.values()];const distance=Math.hypot(a[0]-b[0],a[1]-b[1]);if(touchNav.pinch&&distance>1){const bounds=touchZoomBounds();state.camera.dist=Math.max(bounds.min,Math.min(bounds.max,state.camera.dist*touchNav.pinch/distance));}touchNav.pinch=distance;touchNav.multitouch=true;touchNav.moved=true;return;}
  if(touchNav.multitouch){touchNav.last=[e.clientX,e.clientY];return}
@@ -73,7 +74,7 @@ canvas.addEventListener('pointermove',e=>{
  if(touchNav.moved){state.camera.az-=dx*.0045;state.camera.el=Math.max(-1.5,Math.min(1.5,state.camera.el+dy*.0045));}
  touchNav.last=[e.clientX,e.clientY];
 },{capture:true,passive:false});
-function endTouch(e,cancelled){if(e.pointerType!=='touch')return;e.stopImmediatePropagation();e.preventDefault();if(!touchNav.points.has(e.pointerId))return;
+function endTouch(e,cancelled){if(e.pointerType!=='touch'||(typeof sandbox!=='undefined'&&sandbox.move))return;e.stopImmediatePropagation();e.preventDefault();if(!touchNav.points.has(e.pointerId))return;
  const shouldTap=!cancelled&&!touchNav.moved&&!touchNav.multitouch&&touchNav.points.size===1;
  touchNav.points.delete(e.pointerId);touchNav.pinch=0;
  if(shouldTap)touchTap(e.clientX,e.clientY);
@@ -82,3 +83,4 @@ function endTouch(e,cancelled){if(e.pointerType!=='touch')return;e.stopImmediate
 canvas.addEventListener('pointerup',e=>endTouch(e,false),{capture:true,passive:false});
 canvas.addEventListener('pointercancel',e=>endTouch(e,true),{capture:true,passive:false});
 initMobileUI();
+
