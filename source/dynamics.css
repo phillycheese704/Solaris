@@ -1,0 +1,24 @@
+/* Solaris Dynamics interface — compact, touchable, per-world controls */
+#smashDock,#weaponPeek,#smashBtn,.smash-aim-btn{display:none!important}
+.tabs{display:flex;overflow-x:auto;scrollbar-width:thin;gap:2px;flex-wrap:nowrap}.tabs .tab{flex:0 0 auto;min-width:max-content;padding:11px 10px}
+.planet-pulse{margin:12px 14px;padding:14px;background:linear-gradient(145deg,rgba(22,47,65,.97),rgba(9,23,35,.95));border:1px solid rgba(84,168,208,.3);border-radius:13px;box-shadow:0 8px 35px rgba(0,0,0,.2)}
+.pulse-top{display:flex;justify-content:space-between;gap:8px;font-size:9px;letter-spacing:.12em;color:#a9bed0;font-weight:750}.pulse-top b{color:#7edcb0;letter-spacing:0;white-space:nowrap}
+.pulse-number{font-size:clamp(22px,3vw,32px);font-weight:800;letter-spacing:-.05em;font-variant-numeric:tabular-nums;margin-top:7px;color:#e9f6ff}.pulse-sub{font-size:10px;color:#adbac8;line-height:1.55;margin-top:4px}
+.pulse-track{height:4px;background:#243547;border-radius:5px;overflow:hidden;margin-top:12px}.pulse-track span{display:block;height:100%;background:linear-gradient(90deg,#ffae77,#78d9b7);transition:width .3s}.pulse-foot{font-size:10px;color:#9ac4d6;margin-top:6px}
+.sandbox-coordinates{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:10px 0 13px}.sandbox-coordinates label{font-size:10px;color:#acc0d0}.sandbox-coordinates input{margin-top:5px;border:1px solid #40556a;background:#081622;color:#f1f6ff;width:100%;min-width:0;border-radius:7px;padding:9px 5px;font-size:12px;font-variant-numeric:tabular-nums}
+.sb-select{background:#132535;color:white;border:1px solid #425e75;border-radius:7px;flex:1;min-width:0;max-width:100%;padding:8px}.action.danger{border-color:#a95043!important;background:linear-gradient(140deg,#572b2d,#302028)!important;color:#ffd7c9!important}
+.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.action-grid .action{padding:10px 8px;min-height:40px;font-size:11px}
+.sandbox-readout{border:1px solid rgba(90,160,189,.24);border-radius:10px;padding:13px;margin-top:12px}.sandbox-readout>b{font-size:12px}.sandbox-readout>strong{float:right;font-variant-numeric:tabular-nums;color:#7fdec5}.sandbox-readout .tip{clear:both;padding-top:10px}
+.sandbox-events{font-size:11px;line-height:1.55;color:#c0cad9;max-height:145px;overflow:auto}.sandbox-events>div{margin-bottom:9px;padding-bottom:6px;border-bottom:1px solid #283b4b}.sandbox-events span{color:#7196ad;font-size:9px;white-space:nowrap}
+.top-controls #freeCamBtn.active{color:#8effda;background:#133d3b;border-color:#5bd4a6}.physics-badge{font-size:10px;letter-spacing:.09em;color:#a1d6c7;margin:6px auto 0;opacity:.92}
+.flight-pad{display:none;position:fixed;z-index:25;bottom:calc(128px + env(safe-area-inset-bottom,0px));left:clamp(12px,19vw,300px);border:1px solid #477a87;background:#0b1b2de8;border-radius:13px;padding:8px;box-shadow:0 12px 30px #000a;touch-action:none}.flight-label{font-size:9px;color:#84c8d2;letter-spacing:.12em;text-align:center;margin:3px 0 7px}.flight-controls{display:grid;grid-template-columns:repeat(3,43px);gap:5px}.flight-controls button{background:#15334a;border:1px solid #496878;color:#e7faff;border-radius:7px;width:43px;height:40px;touch-action:none;font-size:12px}.flight-controls button:active{background:#366a80}body:has(#freeCamBtn.active) .flight-pad{display:block}
+body:has(#freeCamBtn.active) canvas#space{cursor:crosshair}
+@media(min-width:901px){.flight-pad{left:clamp(245px,21vw,380px)}.top-controls .freecam-pill{display:inline-flex}}
+@media(max-width:1180px){.tabs{padding-left:3px;padding-right:3px}.tabs .tab{font-size:11px}.planet-pulse{margin:10px 10px}.pulse-number{font-size:24px}}
+@media(max-width:900px){.top-controls #freeCamBtn{display:inline-flex!important;padding:8px!important;font-size:11px;min-width:90px}.flight-pad{left:12px;bottom:calc(131px + env(safe-area-inset-bottom,0px))}.planet-pulse{margin:8px 12px}.tabs{scroll-snap-type:x mandatory}.tabs .tab{scroll-snap-align:start}}
+@media(max-width:460px){.physics-badge{font-size:8px;max-width:70vw}.top-controls #freeCamBtn{min-width:75px;font-size:10px;padding:7px!important}.flight-pad{bottom:calc(130px + env(safe-area-inset-bottom,0px))}.flight-controls{grid-template-columns:repeat(3,35px);gap:3px}.flight-controls button{width:35px;height:34px}.action-grid{gap:6px}.action-grid .action{font-size:10px;padding:8px 5px}.sandbox-coordinates input{font-size:11px}}
+
+/* All five planet categories must remain discoverable without horizontal scrolling. */
+.tabs{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));overflow:visible!important;gap:2px}.tabs .tab{min-width:0!important;white-space:normal!important;overflow-wrap:break-word;padding:10px 3px!important;font-size:10px!important}
+@media(max-width:460px){.tabs .tab{padding:11px 5px!important;font-size:11px!important}}
+
