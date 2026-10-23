@@ -181,15 +181,18 @@ const sphereFS=`#version 300 es
 precision highp float;precision highp int;
 in vec3 vNorm,vWorld,vLocal;in vec2 vUv;out vec4 color;
 uniform sampler2D uTex,uNight;uniform vec3 uCamera,uCenter,uTint;
-uniform int uKind,uHitCount;uniform float uAtmo,uNights,uOpacity,uIntegrity,uHeat;
+uniform int uKind,uHitCount;uniform float uAtmo,uNights,uOpacity,uIntegrity,uHeat,uWater;
 uniform vec4 uHitDirRad[20],uHitMeta[20];
 float randhash(vec3 p){return fract(sin(dot(p,vec3(12.9898,78.233,47.125)))*43758.5453);}
 void main(){
  vec3 albedo=texture(uTex,vUv).rgb;
+ if(uKind==2){float drought=clamp((.71-uWater)*1.4,0.,1.);float flooding=clamp((uWater-.71)*3.2,0.,1.);
+ albedo=mix(albedo,vec3(.58,.43,.28),drought*.8);
+ albedo=mix(albedo,vec3(.05,.17,.39),flooding*.9);}
  vec3 N=normalize(vNorm),L=normalize(-vWorld),V=normalize(uCamera-vWorld);
  float nDot=dot(N,L),lam=smoothstep(-.045,.14,nDot),diffuse=max(nDot,0.);
  vec3 rgb=albedo*(.045+.96*diffuse);
- if(uKind==1){rgb=albedo*1.4+vec3(.15,.065,0.0);}
+ if(uKind==1){rgb=(albedo*1.4+vec3(.15,.065,0.0))*clamp(uHeat/5500.,.24,2.4);}
  else if(uKind==2){float night=(1.-smoothstep(-.21,.1,nDot));rgb+=texture(uNight,vUv).rgb*uNights*night*1.9;float spec=pow(max(dot(reflect(-L,N),V),0.),70.)*lam;rgb+=vec3(.50,.76,.94)*spec*.7;}
  else if(uKind==3){float cloud=clamp(albedo.r*1.9,0.,.9);rgb=vec3(.95,.98,1.)*(.10+.95*diffuse);color=vec4(rgb,cloud*uOpacity);return;}
  float burnGlobal=(1.-uIntegrity)*.27;
@@ -264,8 +267,8 @@ function resize(){const dpr=Math.min(devicePixelRatio||1,window.matchMedia('(poi
 function render(){resize();const cam=cameraData();gl.clearColor(.009,.015,.028,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);if(state.showStars){gl.disable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);gl.useProgram(pr.star);common(pr.star,cam);U1(pr.star,'PixelRatio',Math.min(devicePixelRatio||1,1.8));gl.bindVertexArray(starsVao);gl.drawArrays(gl.POINTS,0,starData.length/4);gl.disable(gl.BLEND);gl.enable(gl.DEPTH_TEST);}
 if(state.showOrbits){gl.useProgram(pr.line);common(pr.line,cam);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);for(const p of planets.filter(x=>x.orb)){let b=paths[p.id];if(!b)continue;U4(pr.line,'Color',[...hex3(p.color),p.id===state.selected?.34:.105]);gl.bindVertexArray(b.vao);gl.drawArrays(gl.LINE_STRIP,0,b.count);}gl.disable(gl.BLEND);}
 const ps=[...planets].sort((a,b)=>V.len(V.sub(b.pos,cam.pos))-V.len(V.sub(a.pos,cam.pos)));gl.useProgram(pr.sphere);common(pr.sphere,cam);U3(pr.sphere,'Camera',cam.pos);Ui(pr.sphere,'Tex',0);Ui(pr.sphere,'Night',1);gl.bindVertexArray(sphere.vao);
-for(let p of ps){if(p.integrity<=0)continue;U3(pr.sphere,'Center',p.pos);U3(pr.sphere,'Tint',hex3(p.color));U1(pr.sphere,'Radius',p.r);U1(pr.sphere,'Tilt',p.opts.tilt*d2r);U1(pr.sphere,'Rotation',((state.date-J2000)/DAY/(p.day||1))*2*Math.PI*p.opts.spin%(Math.PI*2));Ui(pr.sphere,'Kind',p.id==='sun'?1:p.id==='earth'?2:0);U1(pr.sphere,'Atmo',p.opts.atmo?(p.env?Math.min(2,Math.sqrt(p.env.atm/Math.max(.15,climateDefaults[p.id][1]))):1):0);U1(pr.sphere,'Nights',p.opts.night?1:0);U1(pr.sphere,'Opacity',1); U1(pr.sphere,'Integrity',p.integrity/100); U1(pr.sphere,'Heat',p.env?.temp??15); uploadHits(p);bindTex(textures[p.tex],0);bindTex(textures.night,1);gl.drawElements(gl.TRIANGLES,sphere.count,gl.UNSIGNED_SHORT,0);}
-if(!state.physicalScale){let earth=planets.find(p=>p.id==='earth');if(earth.opts.clouds&&earth.integrity>90){gl.useProgram(pr.sphere);common(pr.sphere,cam);U3(pr.sphere,'Camera',cam.pos);U3(pr.sphere,'Center',earth.pos);U3(pr.sphere,'Tint',[.8,.9,1]);U1(pr.sphere,'Radius',earth.r*1.019);U1(pr.sphere,'Tilt',earth.opts.tilt*d2r);U1(pr.sphere,'Rotation',(state.date-J2000)/DAY*2*Math.PI/.99726968*.995%(2*Math.PI));Ui(pr.sphere,'Kind',3);U1(pr.sphere,'Atmo',0);U1(pr.sphere,'Nights',0);U1(pr.sphere,'Opacity',.62);Ui(pr.sphere,'HitCount',0);U1(pr.sphere,'Integrity',1);U1(pr.sphere,'Heat',earth.env?.temp??15);bindTex(textures.clouds,0);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false);gl.bindVertexArray(sphere.vao);gl.drawElements(gl.TRIANGLES,sphere.count,gl.UNSIGNED_SHORT,0);gl.depthMask(true);gl.disable(gl.BLEND);}}
+for(let p of ps){if(p.integrity<=0)continue;U3(pr.sphere,'Center',p.pos);U3(pr.sphere,'Tint',hex3(p.color));U1(pr.sphere,'Radius',p.r);U1(pr.sphere,'Tilt',p.opts.tilt*d2r);U1(pr.sphere,'Rotation',((state.date-J2000)/DAY/(p.day||1))*2*Math.PI*p.opts.spin%(Math.PI*2));Ui(pr.sphere,'Kind',p.id==='sun'?1:p.id==='earth'?2:0);U1(pr.sphere,'Atmo',p.opts.atmo?(p.env?Math.min(2,Math.sqrt(p.env.atm/Math.max(.15,climateDefaults[p.id][1]))):1):0);U1(pr.sphere,'Nights',p.opts.night?1:0);U1(pr.sphere,'Opacity',1); U1(pr.sphere,'Integrity',p.integrity/100); U1(pr.sphere,'Heat',p.env?.temp??15); U1(pr.sphere,'Water',(p.env?.water??0)/100); uploadHits(p);bindTex(textures[p.tex],0);bindTex(textures.night,1);gl.drawElements(gl.TRIANGLES,sphere.count,gl.UNSIGNED_SHORT,0);}
+if(!state.physicalScale){let earth=planets.find(p=>p.id==='earth');if(earth.opts.clouds&&earth.integrity>90){gl.useProgram(pr.sphere);common(pr.sphere,cam);U3(pr.sphere,'Camera',cam.pos);U3(pr.sphere,'Center',earth.pos);U3(pr.sphere,'Tint',[.8,.9,1]);U1(pr.sphere,'Radius',earth.r*1.019);U1(pr.sphere,'Tilt',earth.opts.tilt*d2r);U1(pr.sphere,'Rotation',(state.date-J2000)/DAY*2*Math.PI/.99726968*.995%(2*Math.PI));Ui(pr.sphere,'Kind',3);U1(pr.sphere,'Atmo',0);U1(pr.sphere,'Nights',0);U1(pr.sphere,'Opacity',.62);Ui(pr.sphere,'HitCount',0);U1(pr.sphere,'Integrity',1);U1(pr.sphere,'Heat',earth.env?.temp??15);U1(pr.sphere,'Water',earth.env?.water/100??.71);bindTex(textures.clouds,0);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false);gl.bindVertexArray(sphere.vao);gl.drawElements(gl.TRIANGLES,sphere.count,gl.UNSIGNED_SHORT,0);gl.depthMask(true);gl.disable(gl.BLEND);}}
 for(const p of planets.filter(p=>(p.id==='saturn'||p.id==='uranus')&&p.opts.rings&&p.integrity>0)){gl.useProgram(pr.ring);common(pr.ring,cam);U3(pr.ring,'Center',p.pos);U1(pr.ring,'Radius',p.r);U1(pr.ring,'Tilt',p.opts.tilt*d2r);U1(pr.ring,'RingType',p.id==='uranus'?1:0);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false);gl.bindVertexArray(rings.vao);gl.drawElements(gl.TRIANGLES,rings.count,gl.UNSIGNED_SHORT,0);gl.depthMask(true);gl.disable(gl.BLEND);}
 let sun=planets[0];gl.disable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);gl.useProgram(pr.glow);common(pr.glow,cam);U3(pr.glow,'Center',sun.pos);U3(pr.glow,'Right',cam.right);U3(pr.glow,'Up',cam.up);U3(pr.glow,'Tint',[1,.52,.17]);U1(pr.glow,'Radius',sun.r*7.5);U1(pr.glow,'Power',sun.integrity>0?2.5:0);gl.bindVertexArray(glowVao);gl.drawArrays(gl.TRIANGLES,0,6);gl.disable(gl.BLEND);gl.enable(gl.DEPTH_TEST);if(typeof renderDebris==='function')renderDebris(cam);updateLabels(cam);}
 function worldScreen(w,cam){const r=V.sub(w,cam.pos),z=V.dot(r,cam.fw);if(z<.1)return null;let t=Math.tan(24*d2r),x=V.dot(r,cam.right)/(z*t*canvas.width/canvas.height),y=V.dot(r,cam.up)/(z*t);return {x:(1+x)*canvas.clientWidth/2,y:(1-y)*canvas.clientHeight/2,depth:z};}
@@ -588,7 +591,8 @@ function orbitalClimate(){
  for(const p of planets){if(!p.orb||p.integrity<=0)continue;
   const dist=Math.max(.05,V.len(p.physical)),reference=p.orb[0][0],refTemp=p.env.manualTemp??p.env.baseline;
   // Approximate inverse-square stellar irradiation and fourth-root equilibrium heating: T ∝ r^-1/2.
-  const orbitalDelta=(p.env.baseline+273.15)*(Math.sqrt(reference/dist)-1);
+  const solarHeat=Math.max(.1,(planets[0].env.temp+273.15)/(planets[0].env.baseline+273.15));
+  const orbitalDelta=(p.env.baseline+273.15)*(Math.sqrt(reference/dist)*solarHeat-1);
   p.env.temp=Math.max(-250,Math.min(2500,refTemp+orbitalDelta));
  }
 }
@@ -653,7 +657,7 @@ function sandboxEnvironmentUI(p){const e=p.env,earth=p.id==='earth';const set=(i
  let h=`<div class="field-caption">Live-response sandbox controls. Temperature, atmospheric pressure, radiation and gravity influence planetary stability; Earth population responds as simulation time runs.</div>`;
  h+=`<div class="fieldset"><div class="field-title">${p.id==='sun'?'STELLAR ACTIVITY':'WORLD ENVIRONMENT'}</div>`;
  h+=set('envTemp',p.id==='sun'?'Photosphere temperature':'Average temperature',p.id==='sun'?2000:-245,p.id==='sun'?12500:2200,1,e.temp,'°C');
- if(p.id!=='sun'){h+=set('envAtm','Atmosphere / pressure',0,260,.05,e.atm,' bar');h+=set('envWater','Surface water coverage',0,100,1,e.water,'%');h+=set('envRadiation','Radiation multiplier',0,30,.1,e.radiation,'×');h+=set('envGravity','Mass / gravity multiplier',.01,20,.01,e.gravity,'×');}
+ if(p.id!=='sun'){h+=set('envAtm','Atmosphere / pressure',0,260,.05,e.atm,' bar');h+=set('envWater','Surface water coverage',0,100,1,e.water,'%');h+=set('envRadiation','Radiation multiplier',0,30,.1,e.radiation,'×');}h+=set('envGravity',p.id==='sun'?'Stellar mass / gravity':'Mass / gravity multiplier',.01,20,.01,e.gravity,'×');
  h+='</div>';
  h+=`<div class="sandbox-readout"><b>${earth?'Earth habitability':'Environment stability'}</b><strong id="envScore">${Math.round((earth?habitability()*100:healthOf(p)))}%</strong><div class="tip">${earth?'Earth’s population is a responsive simulation, not a live world census or scientific forecast.':'Extreme settings can scar a planet and gradually reduce its integrity as time advances.'}</div></div>`;
  h+=`<div class="control-row"><button class="action" id="resetClimate">Reset environment</button><button class="action secondary" id="envPause">${state.paused?'Resume':'Pause'} time</button></div>`;
